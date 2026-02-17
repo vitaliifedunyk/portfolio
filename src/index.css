@@ -1,0 +1,332 @@
+@import "tailwindcss";
+
+@theme {
+  --font-serif: "Cormorant Garamond", serif;
+  --font-sans: "Outfit", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+}
+
+/* Spacing System (8px grid) */
+@theme {
+  --spacing-xs: 0.5rem; /* 8px */
+  --spacing-sm: 1rem; /* 16px */
+  --spacing-md: 1.5rem; /* 24px */
+  --spacing-lg: 2rem; /* 32px */
+  --spacing-xl: 3rem; /* 48px */
+  --spacing-2xl: 4rem; /* 64px */
+  --spacing-3xl: 6rem; /* 96px */
+  --spacing-4xl: 8rem; /* 128px */
+}
+
+/* Theme CSS Variables */
+:root {
+  /* Dark Theme (Default) */
+  --bg-primary: #0a0a0a;
+  --bg-secondary: #141414;
+  --text-primary: #fafafa;
+  --text-secondary: #a0a0a0;
+  --text-muted: #666666;
+  --accent: #a78bfa;
+  --accent-hover: #c4b5fd;
+  --accent-muted: #826d8c;
+  --accent-gradient-start: #a78bfa;
+  --accent-gradient-end: #8b5cf6;
+  --border: #222222;
+  --border-hover: #333333;
+}
+
+html.light {
+  /* Light Theme */
+  --bg-primary: #fafafa;
+  --bg-secondary: #f0f0f0;
+  --text-primary: #0a0a0a;
+  --text-secondary: #4a4a4a;
+  --text-muted: #888888;
+  --accent: #7250c2;
+  --accent-hover: #6342ae;
+  --accent-muted: #75688f;
+  --accent-gradient-start: #7a5cc6;
+  --accent-gradient-end: #6548b1;
+  --border: #e5e5e5;
+  --border-hover: #d4d4d4;
+}
+
+/* Tailwind color mappings */
+@theme {
+  --color-bg-primary: var(--bg-primary);
+  --color-bg-secondary: var(--bg-secondary);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-muted: var(--accent-muted);
+  --color-border: var(--border);
+  --color-border-hover: var(--border-hover);
+}
+
+* {
+  box-sizing: border-box;
+  scrollbar-width: none; /* Hide scrollbar for Firefox */
+}
+
+/* Touch action for interactive elements */
+a,
+button,
+[role="button"] {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  scroll-behavior: smooth;
+  height: 100%;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-y: auto;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  margin: 0;
+  padding: 0;
+  line-height: 1.7;
+  letter-spacing: -0.01em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  overflow-x: hidden;
+  overflow-y: auto;
+  min-height: 100dvh;
+  touch-action: pan-y;
+  overscroll-behavior-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+::selection {
+  background-color: var(--accent);
+  color: var(--bg-primary);
+}
+
+/* Scrollbar styling - hidden */
+::-webkit-scrollbar {
+  display: none;
+  width: 0;
+}
+
+::-webkit-scrollbar-track {
+  display: none;
+}
+
+::-webkit-scrollbar-thumb {
+  display: none;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  display: none;
+}
+
+/* Scroll animations */
+.animate-fade-in {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+/* Smooth page transitions */
+.page-transition {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* Parallax effect utility */
+.parallax-slow {
+  will-change: transform;
+  transition: transform 0.1s ease-out;
+}
+
+/* Improved hover states for interactive elements */
+.interactive {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+}
+
+.interactive:hover {
+  transform: translateY(-2px);
+}
+
+.interactive:active {
+  transform: translateY(0);
+}
+
+/* Smooth transitions for interactive elements */
+a,
+button {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Enhanced hover effects */
+.hover-lift {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px rgba(167, 139, 250, 0.2);
+}
+
+/* Gradient utilities */
+.gradient-accent {
+  background: linear-gradient(
+    135deg,
+    var(--accent-gradient-start) 0%,
+    var(--accent-gradient-end) 100%
+  );
+}
+
+.gradient-accent-text {
+  background: linear-gradient(
+    135deg,
+    var(--accent-gradient-start) 0%,
+    var(--accent-gradient-end) 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Border gradient utility */
+.border-gradient {
+  position: relative;
+  border: 1px solid transparent;
+  background: linear-gradient(var(--bg-primary), var(--bg-primary)) padding-box,
+    linear-gradient(
+        135deg,
+        var(--accent-gradient-start),
+        var(--accent-gradient-end)
+      )
+      border-box;
+}
+
+/* Improved hover states */
+.hover-accent {
+  transition: color 0.3s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.3s ease;
+}
+
+.hover-accent:hover {
+  color: var(--accent-hover);
+  border-color: var(--accent);
+}
+
+/* Subtle accent glow */
+.accent-glow {
+  box-shadow: 0 0 20px rgba(167, 139, 250, 0.1);
+  transition: box-shadow 0.3s ease;
+}
+
+.accent-glow:hover {
+  box-shadow: 0 0 30px rgba(167, 139, 250, 0.2);
+}
+
+/* Hide scrollbar on scrollable elements */
+.scrollbar-hide {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none; /* Chrome, Safari and Opera */
+}
+
+/* Typography improvements */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+/* Text wrapping improvements - removed hyphens: auto as it was too aggressive */
+p,
+span,
+a {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+/* Subtle text gradient utility */
+.text-gradient {
+  background: linear-gradient(
+    135deg,
+    var(--text-primary) 0%,
+    var(--text-secondary) 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-gradient-accent {
+  background: linear-gradient(
+    135deg,
+    var(--accent) 0%,
+    var(--accent-muted) 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Section dividers */
+.section-divider {
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    var(--border) 20%,
+    var(--border) 80%,
+    transparent 100%
+  );
+  margin: var(--spacing-4xl) 0;
+}
+
+/* Responsive typography scale */
+@media (max-width: 640px) {
+  body {
+    font-size: 15px;
+    line-height: 1.65;
+  }
+}
+
+/* Improved spacing utilities */
+.space-section {
+  padding-top: var(--spacing-4xl);
+  padding-bottom: var(--spacing-4xl);
+}
+
+@media (max-width: 768px) {
+  .space-section {
+    padding-top: var(--spacing-3xl);
+    padding-bottom: var(--spacing-3xl);
+  }
+}
+
+/* Nav underline on focus */
+.group:focus-visible .nav-underline {
+  width: 100% !important;
+}
+
+/* Prefers reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
