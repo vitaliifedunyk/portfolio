@@ -1,30 +1,39 @@
 🌐 Read this in: [English](README.md) | [Українською](README.uk.md)
 
-## 🏷 Project Title
+## Project Title
 
 Personal Portfolio Website (React + Vite)
 
-## 📄 Description
+## Description
 
-This repository contains my personal portfolio website.  
-The current version is based on a generated React + Vite template and then customized with personal content, sections, and animations.
+This repository contains my personal portfolio website built with React, TypeScript, and Vite.
+The current version uses a single-page section layout with smooth hash navigation and a fixed animated particle background.
 
-## 🔗 Live Demo
+## Live Demo
 
 https://vitaliifedunyk.vercel.app/
 
-## 🧩 Current State
+## Current Features
 
-- The project is a template-based portfolio implementation, not a full manual architecture yet.
-- The main page includes a hero section and footer.
-- Navigation opens hash-based overlay pages for About, Projects, and Contact.
-- Portfolio data (personal info, skills, projects, social links) is stored in `src/data/constants.ts`.
-- The UI currently includes theme switching and animated visual effects.
+- Fullscreen `Hero` section with primary CTAs (`View Projects` and `Email Me`).
+- Section-based layout: `Hero` -> `About` -> `Projects` -> `Footer`.
+- Hash navigation in navbar for `#about` and `#projects`.
+- URL stays synced with scrolling:
+  - `#about` / `#projects` when those sections are active.
+  - clean URL (no hash) when `Hero` is active.
+- Projects section includes:
+  - category filters,
+  - accent-styled `Live Demo` and `Repo` buttons,
+  - short `Challenge` and `Fix` notes for each project.
+- Footer includes social links and static copyright:
+  - `© 2026 Vitalii Fedunyk`.
+- Theme toggle (dark/light) and fixed animated particle background (without flashing effects).
+- Centralized portfolio content in `src/data/constants.ts`.
 
-## 🛠 Tech Stack
+## Tech Stack
 
 - React 19
-- TypeScript (JavaScript ecosystem)
+- TypeScript
 - Vite
 - Tailwind CSS v4
 - Framer Motion
@@ -32,17 +41,17 @@ https://vitaliifedunyk.vercel.app/
 - GSAP
 - ESLint
 
-## 📁 Project Structure
+## Project Structure
 
 ```text
 portfolio/
 ├─ src/
 │  ├─ components/
-│  │  ├─ common/
-│  │  ├─ features/
+│  │  ├─ common/      # Navbar, Footer, MouseGlow, ThemeToggle
+│  │  ├─ features/    # Hero, AboutOverlay, ProjectsOverlay
 │  │  └─ index.ts
 │  ├─ data/constants.ts
-│  ├─ hooks/
+│  ├─ hooks/          # useHashRoute, useTheme
 │  ├─ types/
 │  ├─ App.tsx
 │  ├─ main.tsx
@@ -54,23 +63,21 @@ portfolio/
 └─ eslint.config.js
 ```
 
-## 🚀 How to run locally
+## How to Run Locally
 
 ```bash
 npm install
 npm run dev
+```
+
+## Available Scripts
+
+```bash
 npm run build
 npm run preview
 npm run lint
 ```
 
-## 🧠 Future Plans
-
-- Keep improving React fundamentals and project architecture.
-- Rewrite the portfolio manually step by step after deeper React learning.
-- Replace template-based parts with custom reusable components and cleaner structure.
-- Continue improving UI quality, code organization, and maintainability.
-
-## 👤 Author
+## Author
 
 GitHub: https://github.com/vitaliifedunyk

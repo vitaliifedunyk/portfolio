@@ -1,17 +1,26 @@
 import { PERSONAL_INFO, SOCIAL_LINKS } from '../../data/constants';
 
-export function Footer() {
-  const currentYear = new Date().getFullYear();
+type FooterProps = {
+  embedded?: boolean;
+};
+
+export function Footer({ embedded = false }: FooterProps) {
+  const currentYear = 2026;
 
   return (
-    <footer 
-      className="pt-8 md:pt-12 pb-[max(2rem,env(safe-area-inset-bottom))] relative flex-shrink-0 mt-auto"
+    <footer
+      className={`relative flex-shrink-0 pt-8 md:pt-12 pb-[max(2rem,env(safe-area-inset-bottom))] ${
+        embedded ? 'mt-10 md:mt-12' : 'mt-auto'
+      }`}
     >
       {/* Gradient divider line */}
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent to-transparent opacity-50" />
-      <div className="max-w-6xl mx-auto px-6">
+      <div className={embedded ? '' : 'max-w-6xl mx-auto px-6'}>
         <div className="flex flex-col md:flex-row items-center justify-between gap-4 md:gap-6">
-          <p className="text-text-muted text-xs sm:text-sm font-mono" style={{ letterSpacing: '0.02em' }}>
+          <p
+            className="text-text-muted text-xs sm:text-sm font-mono"
+            style={{ letterSpacing: '0.02em' }}
+          >
             © {currentYear} {PERSONAL_INFO.name}
           </p>
           <div className="flex items-center gap-4 md:gap-6">
@@ -58,4 +67,3 @@ function SocialIcon({ name }: { name: string }) {
       return null;
   }
 }
-

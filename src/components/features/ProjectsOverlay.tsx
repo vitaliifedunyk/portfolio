@@ -172,7 +172,7 @@ export function ProjectsOverlay() {
                   href={project.liveUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-xs sm:text-sm font-mono text-text-muted border border-border/80 hover:text-accent-hover hover:border-accent rounded-md px-3 py-1.5 transition-colors"
+                  className="text-xs sm:text-sm font-mono text-bg-primary bg-accent border border-accent hover:bg-accent-hover hover:border-accent-hover rounded-md px-3 py-1.5 transition-colors"
                   aria-label="View live project"
                   whileHover={{ y: -1 }}
                 >
@@ -182,11 +182,11 @@ export function ProjectsOverlay() {
                   href={project.githubUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-xs sm:text-sm font-mono text-text-muted border border-border/80 hover:text-accent-hover hover:border-accent rounded-md px-3 py-1.5 transition-colors"
+                  className="text-xs sm:text-sm font-mono text-accent border border-accent hover:text-accent-hover hover:border-accent-hover hover:bg-bg-secondary/50 rounded-md px-3 py-1.5 transition-colors"
                   aria-label="View GitHub repository"
                   whileHover={{ y: -1 }}
                 >
-                  Code
+                  Repo
                 </motion.a>
               </div>
             </div>
@@ -196,6 +196,20 @@ export function ProjectsOverlay() {
             >
               {project.description}
             </p>
+            <div className="mb-5 md:mb-6 rounded-md border border-border/70 bg-bg-secondary/40 p-3 sm:p-4 text-left">
+              <p className="text-[11px] sm:text-xs font-mono uppercase tracking-[0.08em] text-accent mb-2">
+                Challenge
+              </p>
+              <p className="text-text-secondary text-sm sm:text-[15px] font-sans leading-relaxed mb-3">
+                {project.challenge}
+              </p>
+              <p className="text-[11px] sm:text-xs font-mono uppercase tracking-[0.08em] text-accent mb-2">
+                Fix
+              </p>
+              <p className="text-text-secondary text-sm sm:text-[15px] font-sans leading-relaxed">
+                {project.solution}
+              </p>
+            </div>
             <div className="flex flex-wrap gap-2 md:gap-3">
               {project.technologies.map((tech) => (
                 <motion.span

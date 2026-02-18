@@ -43,7 +43,7 @@ export function Hero() {
   return (
     <section
       id="hero"
-      className="flex-1 flex items-center justify-center relative overflow-hidden py-12 sm:py-16 md:py-20"
+      className="min-h-dvh flex items-center justify-center relative overflow-hidden py-12 sm:py-16 md:py-20"
     >
       {/* Subtle gradient overlay */}
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-bg-primary/50 pointer-events-none" />
@@ -88,13 +88,20 @@ export function Hero() {
           >
             View Projects
           </button>
-          <button
-            onClick={() => handleCtaClick('#contact')}
-            className="w-40 px-5 py-2.5 text-sm font-mono text-text-secondary hover:text-accent border border-border hover:border-accent rounded-sm transition-colors cursor-pointer"
+          <a
+            href={`mailto:${PERSONAL_INFO.email}`}
+            className="w-40 px-5 py-2.5 text-sm font-mono text-text-secondary hover:text-accent border border-border hover:border-accent rounded-sm transition-colors text-center"
           >
-            Contact Me
-          </button>
+            Email Me
+          </a>
         </motion.div>
+
+        <motion.p
+          variants={itemVariants}
+          className="text-text-muted text-sm font-mono mt-5 break-all"
+        >
+          {PERSONAL_INFO.email}
+        </motion.p>
       </motion.div>
     </section>
   );

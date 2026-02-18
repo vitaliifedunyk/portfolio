@@ -1,6 +1,6 @@
 export const PERSONAL_INFO = {
   name: 'Vitalii Fedunyk',
-  role: 'Junior Frontend Developer',
+  role: 'Junior Fullstack Developer',
   tagline:
     'I build responsive web interfaces with React, TypeScript, and clean UI architecture.',
   email: 'vitalik.fedunyk@gmail.com',
@@ -36,7 +36,6 @@ export const TOOLS_SKILLS = [
 export const NAV_LINKS = [
   { label: 'About', href: '#about' },
   { label: 'Projects', href: '#projects' },
-  { label: 'Contact', href: '#contact' },
 ];
 
 export const SOCIAL_LINKS = [
@@ -95,6 +94,10 @@ export const PROJECTS = [
     title: 'EcoTote',
     description:
       'Responsive landing page for an eco-friendly tote bag brand. Implemented semantic layout, adaptive sections, and clean component styling. Later refactored and improved after course submission.',
+    challenge:
+      'Maintaining consistent spacing and typography across breakpoints caused noticeable visual jumps.',
+    solution:
+      'Reworked the spacing scale and unified typography tokens to keep layout rhythm stable on all screen sizes.',
     technologies: ['HTML', 'CSS', 'Tailwind CSS', 'JavaScript'],
     imageUrl:
       'https://images.unsplash.com/photo-1591561954557-26941169b49e?w=600&h=400&fit=crop',
@@ -109,6 +112,10 @@ export const PROJECTS = [
     title: 'YachtJet',
     description:
       'Multi-section yacht rental website focused on polished UI and responsive behavior. Built with reusable layout patterns and interactive states, then refined after initial course version.',
+    challenge:
+      'The header and navigation interactions conflicted with section anchors on mobile devices.',
+    solution:
+      'Refined anchor offsets and interaction states to make navigation predictable and avoid overlap issues.',
     technologies: ['HTML', 'CSS', 'Tailwind CSS', 'JavaScript'],
     imageUrl:
       'https://images.unsplash.com/photo-1567899378494-47b22a2ae96a?w=600&h=400&fit=crop',
@@ -123,6 +130,10 @@ export const PROJECTS = [
     title: 'WebStudio',
     description:
       'Final course landing page for a web design studio. Focused on pixel-accurate implementation, responsive breakpoints, and solid HTML/CSS fundamentals.',
+    challenge:
+      'Pixel-accurate implementation was difficult because of mixed fixed/relative dimensions in the initial layout.',
+    solution:
+      'Converted critical blocks to flexible units and aligned breakpoints, which improved visual consistency.',
     technologies: ['HTML', 'CSS', 'JavaScript'],
     imageUrl:
       'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=400&fit=crop',

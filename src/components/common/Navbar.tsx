@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { NAV_LINKS, PERSONAL_INFO } from '../../data/constants';
 import { ThemeToggle } from './ThemeToggle';
@@ -8,7 +8,9 @@ import type { OverlayRoute } from '../../types/overlay.types';
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const { activeOverlay, openOverlay } = useHashRoute();
+  const [activeSection, setActiveSection] = useState<OverlayRoute>(null);
+  const lastSyncedSectionRef = useRef<string | null>(null);
+  const { openOverlay } = useHashRoute();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -17,6 +19,77 @@ export function Navbar() {
     window.addEventListener('scroll', handleScroll);
     handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  useEffect(() => {
+    const sectionIds = NAV_LINKS.map(
+      (link) => link.href.replace('#', '') as Exclude<OverlayRoute, null>
+    );
+    const trackedSectionIds = ['hero', ...sectionIds];
+    const sections = trackedSectionIds
+      .map((id) => document.getElementById(id))
+      .filter((section): section is HTMLElement => section !== null);
+
+    if (!sections.length) return;
+
+    const visibilityBySection = new Map<string, number>();
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        visibilityBySection.set(entry.target.id, entry.intersectionRatio);
+      });
+
+      let current: OverlayRoute = null;
+      let highestRatio = 0;
+      let currentTrackedSection: string | null = null;
+
+      for (const id of trackedSectionIds) {
+        const ratio = visibilityBySection.get(id) ?? 0;
+        if (ratio > highestRatio) {
+          highestRatio = ratio;
+          currentTrackedSection = id;
+        }
+      }
+
+      current =
+        currentTrackedSection && currentTrackedSection !== 'hero'
+          ? (currentTrackedSection as Exclude<OverlayRoute, null>)
+          : null;
+      setActiveSection(highestRatio > 0 ? current : null);
+
+      if (highestRatio <= 0 || currentTrackedSection === null) return;
+      if (lastSyncedSectionRef.current === currentTrackedSection) return;
+      lastSyncedSectionRef.current = currentTrackedSection;
+
+      const currentHash = window.location.hash.replace('#', '');
+      if (currentTrackedSection === 'hero') {
+        if (currentHash) {
+          history.replaceState(
+            null,
+            '',
+            `${window.location.pathname}${window.location.search}`
+          );
+        }
+        return;
+      }
+
+      if (currentHash !== currentTrackedSection) {
+        history.replaceState(
+          null,
+          '',
+          `${window.location.pathname}${window.location.search}#${currentTrackedSection}`
+        );
+      }
+    }, {
+      rootMargin: '-42% 0px -42% 0px',
+      threshold: [0, 0.15, 0.3, 0.45, 0.6, 0.75, 1],
+    });
+
+    sections.forEach((section) => observer.observe(section));
+
+    return () => {
+      observer.disconnect();
+    };
   }, []);
 
   const handleNavClick = (href: string) => {
@@ -35,8 +108,8 @@ export function Navbar() {
   };
 
   const isActive = (href: string) => {
-    const route = href.replace('#', '');
-    return activeOverlay === route;
+    const route = href.replace('#', '') as Exclude<OverlayRoute, null>;
+    return activeSection === route;
   };
 
   return (
