@@ -144,10 +144,10 @@ export const PROJECTS = [
   },
 ];
 
-export const ABOUT_TEXT = `I am a junior frontend developer focused on building responsive and user-friendly interfaces with clean HTML, CSS, and JavaScript.
+export const ABOUT_TEXT = `I am a junior fullstack developer focused on building responsive and user-friendly interfaces with clean HTML, CSS, and JavaScript.
 
 Right now I work with Vite and Tailwind CSS in my projects, and I am actively growing toward React development.
 
 My next learning path is TypeScript for React, then React, Next.js, and Node.js.
 
-I am open to junior frontend opportunities and internships.`;
+I am open to junior fullstack opportunities and internships.`;
