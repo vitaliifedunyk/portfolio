@@ -116,8 +116,8 @@ export function Navbar() {
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-200 ${
         isScrolled || isMobileMenuOpen
-          ? 'bg-bg-secondary/90 backdrop-blur-xl'
-          : 'bg-transparent'
+          ? 'bg-bg-secondary border-b border-border/70 shadow-[0_8px_20px_rgba(0,0,0,0.18)]'
+          : 'bg-transparent border-b border-transparent'
       }`}
     >
       <div className="max-w-6xl mx-auto px-6 py-6 relative">
@@ -232,7 +232,7 @@ export function Navbar() {
             }}
             className="md:hidden absolute left-6 right-6 top-full mt-2 z-40"
           >
-            <div className="bg-bg-secondary/96 backdrop-blur-xl border border-border rounded-xl shadow-[0_10px_24px_rgba(0,0,0,0.3)] p-4">
+            <div className="bg-bg-secondary border border-border rounded-xl shadow-[0_10px_24px_rgba(0,0,0,0.3)] p-4">
               <div className="flex flex-col items-center gap-3">
                 {NAV_LINKS.map((link) => {
                   const active = isActive(link.href);

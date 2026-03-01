@@ -90,22 +90,21 @@ export const SKILLS = [
 
 export const PROJECTS = [
   {
-    id: 1,
-    title: 'EcoTote',
+    id: 3,
+    title: 'WebStudio',
     description:
-      'Responsive landing page for an eco-friendly tote bag brand. Implemented semantic layout, adaptive sections, and clean component styling. Later refactored and improved after course submission.',
+      'Final course landing page for a web design studio. Focused on pixel-accurate implementation, responsive breakpoints, and solid HTML/CSS fundamentals.',
     challenge:
-      'Maintaining consistent spacing and typography across breakpoints caused noticeable visual jumps.',
+      'Pixel-accurate implementation was difficult because of mixed fixed/relative dimensions in the initial layout.',
     solution:
-      'Reworked the spacing scale and unified typography tokens to keep layout rhythm stable on all screen sizes.',
-    technologies: ['HTML', 'CSS', 'Tailwind CSS', 'JavaScript'],
+      'Converted critical blocks to flexible units and aligned breakpoints, which improved visual consistency.',
+    technologies: ['HTML/CSS'],
     imageUrl:
-      'https://images.unsplash.com/photo-1591561954557-26941169b49e?w=600&h=400&fit=crop',
-    liveUrl: 'https://vitaliifedunyk.github.io/eco-tote/',
-    githubUrl: 'https://github.com/vitaliifedunyk/eco-tote',
+      'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=400&fit=crop',
+    liveUrl: 'https://vitaliifedunyk.github.io/goit-markup-hw-06/',
+    githubUrl: 'https://github.com/vitaliifedunyk/goit-markup-hw-06',
     type: 'course',
-    isRefactored: true,
-    tracks: ['html-css', 'javascript'],
+    tracks: ['html-css'],
   },
   {
     id: 2,
@@ -116,31 +115,66 @@ export const PROJECTS = [
       'The header and navigation interactions conflicted with section anchors on mobile devices.',
     solution:
       'Refined anchor offsets and interaction states to make navigation predictable and avoid overlap issues.',
-    technologies: ['HTML', 'CSS', 'Tailwind CSS', 'JavaScript'],
+    technologies: ['TailwindCSS'],
     imageUrl:
       'https://images.unsplash.com/photo-1567899378494-47b22a2ae96a?w=600&h=400&fit=crop',
     liveUrl: 'https://vitaliifedunyk.github.io/yachtjet/',
     githubUrl: 'https://github.com/vitaliifedunyk/yachtjet',
     type: 'course',
     isRefactored: true,
-    tracks: ['html-css', 'javascript'],
+    tracks: ['tailwindcss'],
   },
   {
-    id: 3,
-    title: 'WebStudio',
+    id: 1,
+    title: 'EcoTote',
     description:
-      'Final course landing page for a web design studio. Focused on pixel-accurate implementation, responsive breakpoints, and solid HTML/CSS fundamentals.',
+      'Responsive landing page for an eco-friendly tote bag brand. Implemented semantic layout, adaptive sections, and clean component styling. Later refactored and improved after course submission.',
     challenge:
-      'Pixel-accurate implementation was difficult because of mixed fixed/relative dimensions in the initial layout.',
+      'Maintaining consistent spacing and typography across breakpoints caused noticeable visual jumps.',
     solution:
-      'Converted critical blocks to flexible units and aligned breakpoints, which improved visual consistency.',
-    technologies: ['HTML', 'CSS', 'JavaScript'],
+      'Reworked the spacing scale and unified typography tokens to keep layout rhythm stable on all screen sizes.',
+    technologies: ['TailwindCSS'],
     imageUrl:
-      'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=400&fit=crop',
-    liveUrl: 'https://vitaliifedunyk.github.io/goit-markup-hw-06/',
-    githubUrl: 'https://github.com/vitaliifedunyk/goit-markup-hw-06',
+      'https://images.unsplash.com/photo-1591561954557-26941169b49e?w=600&h=400&fit=crop',
+    liveUrl: 'https://vitaliifedunyk.github.io/eco-tote/',
+    githubUrl: 'https://github.com/vitaliifedunyk/eco-tote',
     type: 'course',
-    tracks: ['html-css', 'javascript'],
+    isRefactored: true,
+    tracks: ['tailwindcss'],
+  },
+  {
+    id: 4,
+    title: 'JobFlow',
+    description:
+      'Task-management app focused on a clear workflow: add tasks, track progress, and keep the interface simple and fast.',
+    challenge:
+      'Keeping task state in sync after creating, editing, and deleting items was causing small UI glitches.',
+    solution:
+      'Centralized the state update logic and added straightforward input checks, so task updates now stay consistent.',
+    technologies: ['JavaScript'],
+    imageUrl:
+      'https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?w=600&h=400&fit=crop',
+    liveUrl: 'https://vitaliifedunyk.github.io/jobflow/',
+    githubUrl: 'https://github.com/vitaliifedunyk/jobflow',
+    type: 'personal',
+    tracks: ['javascript'],
+  },
+  {
+    id: 5,
+    title: 'RepoFinder',
+    description:
+      'GitHub repository search app that helps quickly find repos and view key details in a clean, readable layout.',
+    challenge:
+      'API requests needed clearer loading and error handling, especially when no repositories were found.',
+    solution:
+      'Added explicit loading, empty, and error states to keep feedback predictable during every search.',
+    technologies: ['JavaScript'],
+    imageUrl:
+      'https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=600&h=400&fit=crop',
+    liveUrl: 'https://vitaliifedunyk.github.io/repofinder/',
+    githubUrl: 'https://github.com/vitaliifedunyk/repofinder',
+    type: 'personal',
+    tracks: ['javascript'],
   },
 ];
 

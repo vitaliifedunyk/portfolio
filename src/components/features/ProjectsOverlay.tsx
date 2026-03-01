@@ -2,88 +2,26 @@ import { useMemo, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { PROJECTS } from '../../data/constants';
 
-type ProjectFilter = 'all' | 'html-css' | 'javascript' | 'react' | 'fullstack';
+type ProjectFilter = 'all' | 'html-css' | 'javascript' | 'tailwindcss';
 
 const PROJECT_FILTERS: Array<{ id: ProjectFilter; label: string }> = [
   { id: 'all', label: 'All' },
   { id: 'html-css', label: 'HTML/CSS' },
   { id: 'javascript', label: 'JavaScript' },
-  { id: 'react', label: 'React' },
-  { id: 'fullstack', label: 'Full-Stack' },
+  { id: 'tailwindcss', label: 'TailwindCSS' },
 ];
-
-const getFilterByTechnology = (technology: string): ProjectFilter => {
-  const tech = technology.toLowerCase();
-
-  if (tech.includes('react') || tech.includes('next')) return 'react';
-  if (
-    tech.includes('node') ||
-    tech.includes('express') ||
-    tech.includes('api') ||
-    tech.includes('mongodb') ||
-    tech.includes('postgres')
-  ) {
-    return 'fullstack';
-  }
-  if (tech.includes('javascript') || tech === 'js') return 'javascript';
-  return 'html-css';
-};
-
-const matchesProjectFilter = (
-  technologies: string[],
-  filter: ProjectFilter
-): boolean => {
-  if (filter === 'all') return true;
-  return technologies.some((tech) => getFilterByTechnology(tech) === filter);
-};
 
 export function ProjectsOverlay() {
   const [activeFilter, setActiveFilter] = useState<ProjectFilter>('all');
   const easing: [number, number, number, number] = [0.22, 1, 0.36, 1];
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.07,
-        delayChildren: 0.08,
-      },
-    },
-    exit: {
-      opacity: 0,
-      transition: {
-        staggerChildren: 0.04,
-        staggerDirection: -1,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 16 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.42,
-        ease: easing,
-      },
-    },
-    exit: {
-      opacity: 0,
-      y: 10,
-      transition: {
-        duration: 0.24,
-        ease: easing,
-      },
-    },
+  const filterTransition = {
+    duration: 0.24,
+    ease: easing,
   };
 
   const filteredProjects = useMemo(() => {
     if (activeFilter === 'all') return PROJECTS;
-    return PROJECTS.filter((project) =>
-      matchesProjectFilter(project.technologies, activeFilter)
-    );
+    return PROJECTS.filter((project) => project.tracks.includes(activeFilter));
   }, [activeFilter]);
 
   return (
@@ -96,18 +34,15 @@ export function ProjectsOverlay() {
       }}
     >
       <motion.div
-        variants={containerVariants}
-        initial="hidden"
-        animate="visible"
-        exit="exit"
         className="space-y-12"
         style={{ width: '100%' }}
       >
-        <motion.div variants={itemVariants} className="flex flex-wrap gap-2 md:gap-3">
+        <div className="flex flex-wrap gap-2 md:gap-3">
           {PROJECT_FILTERS.map((filter) => (
             <button
               key={filter.id}
               onClick={() => setActiveFilter(filter.id)}
+              disabled={activeFilter === filter.id}
               className={`text-xs sm:text-sm font-mono px-3 py-1.5 border rounded-md transition-colors ${
                 activeFilter === filter.id
                   ? 'text-accent border-accent'
@@ -117,16 +52,16 @@ export function ProjectsOverlay() {
               {filter.label}
             </button>
           ))}
-        </motion.div>
+        </div>
 
-        <AnimatePresence mode="popLayout">
+        <AnimatePresence initial={false} mode="sync">
           {filteredProjects.length === 0 && (
             <motion.p
               key="empty-projects"
-              variants={itemVariants}
-              initial="hidden"
-              animate="visible"
-              exit="exit"
+              initial={{ opacity: 0, y: 6 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -6 }}
+              transition={filterTransition}
               className="text-text-muted text-sm sm:text-base font-sans"
             >
               No projects in this category yet. More coming soon.
@@ -136,11 +71,11 @@ export function ProjectsOverlay() {
           {filteredProjects.map((project) => (
             <motion.div
               key={project.id}
-              variants={itemVariants}
-              initial="hidden"
-              animate="visible"
-              exit="exit"
-              layout
+              layout="position"
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={filterTransition}
               className="group border-b border-border pb-12 last:border-b-0 last:pb-0"
               style={{ width: '100%' }}
             >
@@ -168,26 +103,24 @@ export function ProjectsOverlay() {
                 {project.title}
               </h3>
               <div className="flex items-center gap-2 sm:gap-3">
-                <motion.a
+                <a
                   href={project.liveUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-xs sm:text-sm font-mono text-bg-primary bg-accent border border-accent hover:bg-accent-hover hover:border-accent-hover rounded-md px-3 py-1.5 transition-colors"
                   aria-label="View live project"
-                  whileHover={{ y: -1 }}
                 >
                   Live Demo
-                </motion.a>
-                <motion.a
+                </a>
+                <a
                   href={project.githubUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-xs sm:text-sm font-mono text-accent border border-accent hover:text-accent-hover hover:border-accent-hover hover:bg-bg-secondary/50 rounded-md px-3 py-1.5 transition-colors"
                   aria-label="View GitHub repository"
-                  whileHover={{ y: -1 }}
                 >
                   Repo
-                </motion.a>
+                </a>
               </div>
             </div>
             <p
@@ -212,20 +145,13 @@ export function ProjectsOverlay() {
             </div>
             <div className="flex flex-wrap gap-2 md:gap-3">
               {project.technologies.map((tech) => (
-                <motion.span
+                <span
                   key={tech}
-                  className={`text-text-muted font-mono text-xs sm:text-sm px-3 py-1.5 border rounded-sm transition-colors duration-300 cursor-pointer ${
-                    activeFilter === getFilterByTechnology(tech)
-                      ? 'border-accent text-accent'
-                      : 'border-border hover:border-accent hover:text-accent-hover'
-                  }`}
+                  className="text-text-muted font-mono text-xs sm:text-sm px-3 py-1.5 border border-border rounded-sm"
                   style={{ letterSpacing: '0.02em' }}
-                  onClick={() => setActiveFilter(getFilterByTechnology(tech))}
-                  whileHover={{ y: -1 }}
-                  transition={{ type: 'spring', stiffness: 400, damping: 17 }}
                 >
                   {tech}
-                </motion.span>
+                </span>
               ))}
             </div>
             </motion.div>
