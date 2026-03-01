@@ -45,9 +45,6 @@ export function Hero() {
       id="hero"
       className="min-h-dvh flex items-center justify-center relative overflow-hidden py-12 sm:py-16 md:py-20"
     >
-      {/* Subtle gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-bg-primary/50 pointer-events-none" />
-      
       <motion.div
         variants={containerVariants}
         initial="hidden"

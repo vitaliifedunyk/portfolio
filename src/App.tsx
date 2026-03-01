@@ -6,6 +6,7 @@ import {
   AboutOverlay,
   ProjectsOverlay,
 } from './components';
+import { useTheme } from './hooks/useTheme';
 
 const MouseGlow = lazy(() =>
   import('./components/common/MouseGlow').then((module) => ({
@@ -15,6 +16,7 @@ const MouseGlow = lazy(() =>
 
 function App() {
   const [isMouseGlowEnabled, setIsMouseGlowEnabled] = useState(false);
+  const { theme } = useTheme();
 
   useEffect(() => {
     const timer = window.setTimeout(() => {
@@ -25,12 +27,16 @@ function App() {
   }, []);
 
   return (
-    <div className="min-h-dvh bg-bg-primary flex flex-col overflow-x-hidden">
+    <div className="relative min-h-dvh bg-bg-primary flex flex-col overflow-x-hidden">
+      <div
+        className={`sun ${theme === 'light' ? 'sun-visible' : ''}`}
+        aria-hidden="true"
+      />
       <Suspense fallback={null}>
         {isMouseGlowEnabled && <MouseGlow paused={false} />}
       </Suspense>
       <Navbar />
-      <main className="flex-1 flex flex-col">
+      <main className="relative z-20 flex-1 flex flex-col">
         <Hero />
         <ScrollRevealSection id="about" title="About">
           <AboutOverlay />
