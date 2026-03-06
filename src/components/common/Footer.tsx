@@ -1,21 +1,13 @@
 import { PERSONAL_INFO, SOCIAL_LINKS } from '../../data/constants';
+import type { SocialIcon } from '../../types/content.types';
 
-type FooterProps = {
-  embedded?: boolean;
-};
-
-export function Footer({ embedded = false }: FooterProps) {
+export function Footer() {
   const currentYear = 2026;
 
   return (
-    <footer
-      className={`relative flex-shrink-0 pt-8 md:pt-12 pb-[max(2rem,env(safe-area-inset-bottom))] ${
-        embedded ? 'mt-10 md:mt-12' : 'mt-auto'
-      }`}
-    >
-      {/* Gradient divider line */}
+    <footer className="relative flex-shrink-0 mt-auto pt-8 md:pt-12 pb-[max(2rem,env(safe-area-inset-bottom))]">
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent to-transparent opacity-50" />
-      <div className={embedded ? '' : 'max-w-6xl mx-auto px-6'}>
+      <div className="max-w-6xl mx-auto px-6">
         <div className="flex flex-col md:flex-row items-center justify-between gap-4 md:gap-6">
           <p
             className="text-text-muted text-xs sm:text-sm font-mono"
@@ -43,7 +35,7 @@ export function Footer({ embedded = false }: FooterProps) {
   );
 }
 
-function SocialIcon({ name }: { name: string }) {
+function SocialIcon({ name }: { name: SocialIcon }) {
   switch (name) {
     case 'github':
       return (

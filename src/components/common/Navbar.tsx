@@ -1,9 +1,16 @@
-import { useState, useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { NAV_LINKS, PERSONAL_INFO } from '../../data/constants';
 import { ThemeToggle } from './ThemeToggle';
 import { useHashRoute } from '../../hooks/useHashRoute';
+import { PREMIUM_EASE } from '../../lib/motion';
 import type { OverlayRoute } from '../../types/overlay.types';
+
+const MOBILE_MENU_EASE = [0.4, 0, 0.2, 1] as const;
+
+function getRouteFromHref(href: string): Exclude<OverlayRoute, null> {
+  return href.replace('#', '') as Exclude<OverlayRoute, null>;
+}
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -14,17 +21,20 @@ export function Navbar() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
+      const nextIsScrolled = window.scrollY > 50;
+      setIsScrolled((previousIsScrolled) =>
+        previousIsScrolled === nextIsScrolled
+          ? previousIsScrolled
+          : nextIsScrolled
+      );
     };
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   useEffect(() => {
-    const sectionIds = NAV_LINKS.map(
-      (link) => link.href.replace('#', '') as Exclude<OverlayRoute, null>
-    );
+    const sectionIds = NAV_LINKS.map((link) => getRouteFromHref(link.href));
     const trackedSectionIds = ['hero', ...sectionIds];
     const sections = trackedSectionIds
       .map((id) => document.getElementById(id))
@@ -94,8 +104,7 @@ export function Navbar() {
 
   const handleNavClick = (href: string) => {
     sessionStorage.setItem('overlay-source', 'nav');
-    const route = href.replace('#', '') as Exclude<OverlayRoute, null>;
-    openOverlay(route);
+    openOverlay(getRouteFromHref(href));
     setIsMobileMenuOpen(false);
   };
 
@@ -108,8 +117,7 @@ export function Navbar() {
   };
 
   const isActive = (href: string) => {
-    const route = href.replace('#', '') as Exclude<OverlayRoute, null>;
-    return activeSection === route;
+    return activeSection === getRouteFromHref(href);
   };
 
   return (
@@ -140,7 +148,7 @@ export function Navbar() {
             aria-label="Go to homepage"
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.98 }}
-            transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.18, ease: PREMIUM_EASE }}
           >
             VF
           </motion.button>
@@ -228,7 +236,7 @@ export function Navbar() {
             exit={{ opacity: 0, y: -6 }}
             transition={{
               duration: 0.2,
-              ease: [0.4, 0, 0.2, 1] as [number, number, number, number],
+              ease: MOBILE_MENU_EASE,
             }}
             className="md:hidden absolute left-6 right-6 top-full mt-2 z-40"
           >

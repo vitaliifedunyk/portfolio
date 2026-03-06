@@ -2,7 +2,35 @@ import { motion } from 'framer-motion';
 import type { Variants } from 'framer-motion';
 import { PERSONAL_INFO } from '../../data/constants';
 import { useHashRoute } from '../../hooks/useHashRoute';
+import { PREMIUM_EASE } from '../../lib/motion';
 import type { OverlayRoute } from '../../types/overlay.types';
+
+const containerVariants: Variants = {
+  hidden: { opacity: 0, y: 10 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.5,
+      ease: PREMIUM_EASE,
+      staggerChildren: 0.12,
+      delayChildren: 0.08,
+    },
+  },
+};
+
+const itemVariants: Variants = {
+  hidden: { opacity: 0, y: 18, filter: 'blur(4px)' },
+  visible: {
+    opacity: 1,
+    y: 0,
+    filter: 'blur(0px)',
+    transition: {
+      duration: 0.52,
+      ease: PREMIUM_EASE,
+    },
+  },
+};
 
 export function Hero() {
   const { openOverlay } = useHashRoute();
@@ -11,33 +39,6 @@ export function Hero() {
     sessionStorage.setItem('overlay-source', 'hero');
     const route = href.replace('#', '') as Exclude<OverlayRoute, null>;
     openOverlay(route);
-  };
-
-  const containerVariants: Variants = {
-    hidden: { opacity: 0, y: 10 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.5,
-        ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
-        staggerChildren: 0.12,
-        delayChildren: 0.08,
-      },
-    },
-  };
-
-  const itemVariants: Variants = {
-    hidden: { opacity: 0, y: 18, filter: 'blur(4px)' },
-    visible: {
-      opacity: 1,
-      y: 0,
-      filter: 'blur(0px)',
-      transition: {
-        duration: 0.52,
-        ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
-      },
-    },
   };
 
   return (

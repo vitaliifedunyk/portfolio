@@ -128,84 +128,10 @@ body {
   display: none;
 }
 
-/* Scroll animations */
-.animate-fade-in {
-  opacity: 1 !important;
-  transform: translateY(0) !important;
-}
-
-/* Smooth page transitions */
-.page-transition {
-  transition: opacity 0.3s ease, transform 0.3s ease;
-}
-
-/* Parallax effect utility */
-.parallax-slow {
-  will-change: transform;
-  transition: transform 0.1s ease-out;
-}
-
-/* Improved hover states for interactive elements */
-.interactive {
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  cursor: pointer;
-}
-
-.interactive:hover {
-  transform: translateY(-2px);
-}
-
-.interactive:active {
-  transform: translateY(0);
-}
-
 /* Smooth transitions for interactive elements */
 a,
 button {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* Enhanced hover effects */
-.hover-lift {
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease;
-}
-
-.hover-lift:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 10px 25px rgba(167, 139, 250, 0.2);
-}
-
-/* Gradient utilities */
-.gradient-accent {
-  background: linear-gradient(
-    135deg,
-    var(--accent-gradient-start) 0%,
-    var(--accent-gradient-end) 100%
-  );
-}
-
-.gradient-accent-text {
-  background: linear-gradient(
-    135deg,
-    var(--accent-gradient-start) 0%,
-    var(--accent-gradient-end) 100%
-  );
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-/* Border gradient utility */
-.border-gradient {
-  position: relative;
-  border: 1px solid transparent;
-  background: linear-gradient(var(--bg-primary), var(--bg-primary)) padding-box,
-    linear-gradient(
-        135deg,
-        var(--accent-gradient-start),
-        var(--accent-gradient-end)
-      )
-      border-box;
 }
 
 /* Improved hover states */
@@ -216,26 +142,6 @@ button {
 .hover-accent:hover {
   color: var(--accent-hover);
   border-color: var(--accent);
-}
-
-/* Subtle accent glow */
-.accent-glow {
-  box-shadow: 0 0 20px rgba(167, 139, 250, 0.1);
-  transition: box-shadow 0.3s ease;
-}
-
-.accent-glow:hover {
-  box-shadow: 0 0 30px rgba(167, 139, 250, 0.2);
-}
-
-/* Hide scrollbar on scrollable elements */
-.scrollbar-hide {
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
-}
-
-.scrollbar-hide::-webkit-scrollbar {
-  display: none; /* Chrome, Safari and Opera */
 }
 
 /* Typography improvements */
@@ -257,60 +163,11 @@ a {
   overflow-wrap: break-word;
 }
 
-/* Subtle text gradient utility */
-.text-gradient {
-  background: linear-gradient(
-    135deg,
-    var(--text-primary) 0%,
-    var(--text-secondary) 100%
-  );
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.text-gradient-accent {
-  background: linear-gradient(
-    135deg,
-    var(--accent) 0%,
-    var(--accent-muted) 100%
-  );
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-/* Section dividers */
-.section-divider {
-  height: 1px;
-  background: linear-gradient(
-    to right,
-    transparent 0%,
-    var(--border) 20%,
-    var(--border) 80%,
-    transparent 100%
-  );
-  margin: var(--spacing-4xl) 0;
-}
-
 /* Responsive typography scale */
 @media (max-width: 640px) {
   body {
     font-size: 15px;
     line-height: 1.65;
-  }
-}
-
-/* Improved spacing utilities */
-.space-section {
-  padding-top: var(--spacing-4xl);
-  padding-bottom: var(--spacing-4xl);
-}
-
-@media (max-width: 768px) {
-  .space-section {
-    padding-top: var(--spacing-3xl);
-    padding-bottom: var(--spacing-3xl);
   }
 }
 

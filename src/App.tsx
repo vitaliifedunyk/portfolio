@@ -1,12 +1,14 @@
-import { lazy, Suspense, useEffect, useState, type ReactNode } from 'react';
+import { lazy, Suspense, useEffect, useState } from 'react';
 import {
   Navbar,
   Hero,
   Footer,
+  Section,
   AboutOverlay,
   ProjectsOverlay,
 } from './components';
 import { useTheme } from './hooks/useTheme';
+import { usePrefersReducedMotion } from './hooks/usePrefersReducedMotion';
 
 const MouseGlow = lazy(() =>
   import('./components/common/MouseGlow').then((module) => ({
@@ -17,14 +19,20 @@ const MouseGlow = lazy(() =>
 function App() {
   const [isMouseGlowEnabled, setIsMouseGlowEnabled] = useState(false);
   const { theme } = useTheme();
+  const prefersReducedMotion = usePrefersReducedMotion();
+  const shouldRenderMouseGlow = theme === 'dark' && !prefersReducedMotion;
 
   useEffect(() => {
+    if (!shouldRenderMouseGlow || isMouseGlowEnabled) {
+      return;
+    }
+
     const timer = window.setTimeout(() => {
       setIsMouseGlowEnabled(true);
     }, 250);
 
     return () => window.clearTimeout(timer);
-  }, []);
+  }, [isMouseGlowEnabled, shouldRenderMouseGlow]);
 
   return (
     <div className="relative min-h-dvh bg-bg-primary flex flex-col overflow-x-hidden">
@@ -33,50 +41,22 @@ function App() {
         aria-hidden="true"
       />
       <Suspense fallback={null}>
-        {isMouseGlowEnabled && <MouseGlow paused={false} />}
+        {shouldRenderMouseGlow && isMouseGlowEnabled && (
+          <MouseGlow paused={false} />
+        )}
       </Suspense>
       <Navbar />
       <main className="relative z-20 flex-1 flex flex-col">
         <Hero />
-        <ScrollRevealSection id="about" title="About">
+        <Section id="about" title="About">
           <AboutOverlay />
-        </ScrollRevealSection>
-        <ScrollRevealSection id="projects" title="Projects">
+        </Section>
+        <Section id="projects" title="Projects">
           <ProjectsOverlay />
-        </ScrollRevealSection>
+        </Section>
         <Footer />
       </main>
     </div>
-  );
-}
-
-function ScrollRevealSection({
-  id,
-  title,
-  children,
-}: {
-  id: 'about' | 'projects';
-  title: string;
-  children: ReactNode;
-}) {
-  return (
-    <section id={id} className="scroll-mt-28 px-6 py-14 md:py-20">
-      <div className="max-w-6xl mx-auto w-full">
-        <div className="relative pb-4 mb-8 md:mb-10">
-          <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent to-transparent opacity-50" />
-          <h2
-            className="text-2xl md:text-3xl font-serif font-light text-text-primary"
-            style={{
-              fontFamily: 'var(--font-serif)',
-              letterSpacing: '-0.02em',
-            }}
-          >
-            {title}
-          </h2>
-        </div>
-        {children}
-      </div>
-    </section>
   );
 }
 
