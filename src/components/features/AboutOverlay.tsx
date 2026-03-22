@@ -1,21 +1,10 @@
 import { motion } from 'framer-motion';
-
-const aboutParagraphs = [
-  'I started with HTML and CSS, then moved into JavaScript, React, and TypeScript by building interfaces that had to feel solid on real screens.',
-  'Most of my progress came from shipping small but complete projects, then revisiting them to improve structure, responsiveness, and overall polish.',
-];
-
-const coreSkills = [
-  'HTML5 & CSS3',
-  'JavaScript',
-  'TypeScript',
-  'React',
-  'Tailwind CSS',
-  'Vite',
-];
-
-const learningSkills = ['Next.js', 'Node.js', 'Express', 'Docker'];
-const tools = ['Git & GitHub', 'VS Code', 'Figma', 'Postman'];
+import {
+  ABOUT_PARAGRAPHS,
+  CORE_SKILLS,
+  LEARNING_SKILLS,
+  TOOLS_SKILLS,
+} from '../../data/constants';
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -80,7 +69,7 @@ export function AboutOverlay() {
       className="grid gap-10 md:grid-cols-2 md:gap-16"
     >
       <div className="space-y-5">
-        {aboutParagraphs.map((paragraph) => (
+        {ABOUT_PARAGRAPHS.map((paragraph) => (
           <motion.p
             key={paragraph}
             variants={itemVariants}
@@ -93,9 +82,9 @@ export function AboutOverlay() {
       </div>
 
       <motion.div variants={itemVariants} className="space-y-8">
-        <SkillGroup title="Core Skills" items={coreSkills} />
-        <SkillGroup title="Currently Learning" items={learningSkills} />
-        <SkillGroup title="Tools" items={tools} />
+        <SkillGroup title="Core Skills" items={CORE_SKILLS} />
+        <SkillGroup title="Currently Learning" items={LEARNING_SKILLS} />
+        <SkillGroup title="Tools" items={TOOLS_SKILLS} />
       </motion.div>
     </motion.div>
   );

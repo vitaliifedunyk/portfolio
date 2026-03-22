@@ -1,12 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
+import { NAV_LINKS, PERSONAL_INFO } from '../../data/constants';
 import type { OverlayRoute } from '../../types/overlay.types';
 import { useHashRoute } from '../../hooks/useHashRoute';
 import { ThemeToggle } from './ThemeToggle';
-
-const navLinks = [
-  { label: 'About', href: '#about' },
-  { label: 'Projects', href: '#projects' },
-] as const;
 
 function getRouteFromHref(href: string): Exclude<OverlayRoute, null> {
   return href.replace('#', '') as Exclude<OverlayRoute, null>;
@@ -30,7 +26,7 @@ export function Navbar() {
   }, []);
 
   useEffect(() => {
-    const trackedSectionIds = ['hero', ...navLinks.map((link) => getRouteFromHref(link.href))];
+    const trackedSectionIds = ['hero', ...NAV_LINKS.map((link) => getRouteFromHref(link.href))];
     const sections = trackedSectionIds
       .map((id) => document.getElementById(id))
       .filter((section): section is HTMLElement => section !== null);
@@ -141,7 +137,7 @@ export function Navbar() {
           VF
         </button>
         <nav className="flex items-center gap-5 text-sm">
-          {navLinks.map((link) => (
+          {NAV_LINKS.map((link) => (
             <button
               key={link.href}
               onClick={() => handleNavClick(link.href)}
@@ -156,7 +152,7 @@ export function Navbar() {
             </button>
           ))}
           <a
-            href="mailto:vitaliifedunyk.dev@gmail.com"
+            href={`mailto:${PERSONAL_INFO.email}`}
             className="transition-opacity hover:opacity-100"
           >
             Email

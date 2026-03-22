@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { PERSONAL_INFO } from '../../data/constants';
 import { useHashRoute } from '../../hooks/useHashRoute';
 
 const containerVariants = {
@@ -43,22 +44,21 @@ export function Hero() {
           className="mb-6 font-mono text-sm uppercase tracking-[0.24em]"
           style={{ color: 'var(--text-muted)' }}
         >
-          Fullstack Developer
+          {PERSONAL_INFO.role}
         </motion.p>
         <motion.h1
           variants={itemVariants}
           className="mb-8 text-5xl font-semibold tracking-tight sm:text-7xl"
           style={{ color: 'var(--text-primary)' }}
         >
-          Vitalii Fedunyk
+          {PERSONAL_INFO.name}
         </motion.h1>
         <motion.p
           variants={itemVariants}
           className="mb-10 max-w-2xl text-base leading-7 sm:text-lg"
           style={{ color: 'var(--text-secondary)' }}
         >
-          I build fast, clean web products from polished interfaces to reliable
-          application logic.
+          {PERSONAL_INFO.tagline}
         </motion.p>
         <motion.div
           variants={itemVariants}
@@ -75,7 +75,7 @@ export function Hero() {
             View Projects
           </button>
           <a
-            href="mailto:vitaliifedunyk.dev@gmail.com"
+            href={`mailto:${PERSONAL_INFO.email}`}
             className="rounded-full px-6 py-3 text-sm font-medium transition-opacity hover:opacity-100"
             style={{
               border: '1px solid var(--border)',
@@ -85,6 +85,13 @@ export function Hero() {
             Email Me
           </a>
         </motion.div>
+        <motion.p
+          variants={itemVariants}
+          className="mt-5 text-sm"
+          style={{ color: 'var(--text-muted)' }}
+        >
+          {PERSONAL_INFO.email}
+        </motion.p>
       </motion.div>
     </section>
   );

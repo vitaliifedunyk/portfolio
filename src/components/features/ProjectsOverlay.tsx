@@ -1,62 +1,9 @@
 import { useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
-
-type ProjectTrack = 'html-css' | 'javascript' | 'tailwindcss';
-
-type Project = {
-  id: number;
-  title: string;
-  description: string;
-  technologies: string[];
-  liveUrl: string;
-  githubUrl: string;
-  tracks: ProjectTrack[];
-};
+import { PROJECTS } from '../../data/constants';
+import type { ProjectTrack } from '../../types/content.types';
 
 type ProjectFilter = 'all' | ProjectTrack;
-
-const projects: Project[] = [
-  {
-    id: 1,
-    title: 'WebStudio',
-    description:
-      'Responsive marketing landing page focused on semantic HTML, adaptive layout, and clean CSS structure.',
-    technologies: ['HTML/CSS'],
-    liveUrl: 'https://vitaliifedunyk.github.io/goit-markup-hw-06/',
-    githubUrl: 'https://github.com/vitaliifedunyk/goit-markup-hw-06',
-    tracks: ['html-css'],
-  },
-  {
-    id: 2,
-    title: 'YachtJet',
-    description:
-      'Multi-section brand site built with reusable Tailwind patterns and polished responsive behavior.',
-    technologies: ['Tailwind CSS'],
-    liveUrl: 'https://vitaliifedunyk.github.io/yachtjet/',
-    githubUrl: 'https://github.com/vitaliifedunyk/yachtjet',
-    tracks: ['tailwindcss'],
-  },
-  {
-    id: 3,
-    title: 'JobFlow',
-    description:
-      'Vanilla JavaScript task manager with localStorage persistence, filtering, and edit/delete flows.',
-    technologies: ['JavaScript'],
-    liveUrl: 'https://vitaliifedunyk.github.io/jobflow/',
-    githubUrl: 'https://github.com/vitaliifedunyk/jobflow',
-    tracks: ['javascript'],
-  },
-  {
-    id: 4,
-    title: 'RepoFinder',
-    description:
-      'GitHub repository explorer with loading, empty, and error states for API-driven search.',
-    technologies: ['JavaScript'],
-    liveUrl: 'https://vitaliifedunyk.github.io/repofinder/',
-    githubUrl: 'https://github.com/vitaliifedunyk/repofinder',
-    tracks: ['javascript'],
-  },
-];
 
 const filters: Array<{ id: ProjectFilter; label: string }> = [
   { id: 'all', label: 'All' },
@@ -93,10 +40,10 @@ export function ProjectsOverlay() {
 
   const filteredProjects = useMemo(() => {
     if (activeFilter === 'all') {
-      return projects;
+      return PROJECTS;
     }
 
-    return projects.filter((project) => project.tracks.includes(activeFilter));
+    return PROJECTS.filter((project) => project.tracks.includes(activeFilter));
   }, [activeFilter]);
 
   return (
