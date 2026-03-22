@@ -1,4 +1,4 @@
-import { Footer, Hero, Navbar } from './components';
+import { AboutOverlay, Footer, Hero, Navbar, Section } from './components';
 
 function App() {
   return (
@@ -6,6 +6,9 @@ function App() {
       <Navbar />
       <main className="flex min-h-screen flex-col">
         <Hero />
+        <Section id="about" title="About">
+          <AboutOverlay />
+        </Section>
         <Footer />
       </main>
     </div>

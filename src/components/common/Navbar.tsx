@@ -5,12 +5,17 @@ export function Navbar() {
         <span className="font-mono text-sm tracking-[0.24em] text-neutral-300">
           VF
         </span>
-        <a
-          href="mailto:vitaliifedunyk.dev@gmail.com"
-          className="text-sm text-neutral-300 transition-colors hover:text-white"
-        >
-          Email
-        </a>
+        <nav className="flex items-center gap-5 text-sm text-neutral-300">
+          <a href="#about" className="transition-colors hover:text-white">
+            About
+          </a>
+          <a
+            href="mailto:vitaliifedunyk.dev@gmail.com"
+            className="transition-colors hover:text-white"
+          >
+            Email
+          </a>
+        </nav>
       </div>
     </header>
   );
