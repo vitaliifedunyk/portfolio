@@ -9,6 +9,9 @@ export function Navbar() {
           <a href="#about" className="transition-colors hover:text-white">
             About
           </a>
+          <a href="#projects" className="transition-colors hover:text-white">
+            Projects
+          </a>
           <a
             href="mailto:vitaliifedunyk.dev@gmail.com"
             className="transition-colors hover:text-white"

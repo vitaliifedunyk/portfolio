@@ -1,4 +1,11 @@
-import { AboutOverlay, Footer, Hero, Navbar, Section } from './components';
+import {
+  AboutOverlay,
+  Footer,
+  Hero,
+  Navbar,
+  ProjectsOverlay,
+  Section,
+} from './components';
 
 function App() {
   return (
@@ -8,6 +15,9 @@ function App() {
         <Hero />
         <Section id="about" title="About">
           <AboutOverlay />
+        </Section>
+        <Section id="projects" title="Projects">
+          <ProjectsOverlay />
         </Section>
         <Footer />
       </main>
