@@ -1,7 +1,8 @@
+import type { OverlayRoute } from '../../types/overlay.types';
 import type { ReactNode } from 'react';
 
 interface SectionProps {
-  id: string;
+  id: Exclude<OverlayRoute, null>;
   title: string;
   children: ReactNode;
 }

@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { useHashRoute } from '../../hooks/useHashRoute';
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -24,8 +25,13 @@ const itemVariants = {
 };
 
 export function Hero() {
+  const { openOverlay } = useHashRoute();
+
   return (
-    <section className="flex min-h-screen items-center justify-center px-6 py-20">
+    <section
+      id="hero"
+      className="flex min-h-screen items-center justify-center px-6 py-20"
+    >
       <motion.div
         variants={containerVariants}
         initial="hidden"
@@ -58,27 +64,25 @@ export function Hero() {
           variants={itemVariants}
           className="flex flex-col gap-3 sm:flex-row"
         >
-          <a
-            href="mailto:vitaliifedunyk.dev@gmail.com"
+          <button
+            onClick={() => openOverlay('projects')}
             className="rounded-full px-6 py-3 text-sm font-medium transition-transform hover:-translate-y-0.5"
             style={{
               backgroundColor: 'var(--accent)',
               color: 'var(--accent-contrast)',
             }}
           >
-            Get in touch
-          </a>
+            View Projects
+          </button>
           <a
-            href="https://github.com/vitaliifedunyk"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="mailto:vitaliifedunyk.dev@gmail.com"
             className="rounded-full px-6 py-3 text-sm font-medium transition-opacity hover:opacity-100"
             style={{
               border: '1px solid var(--border)',
               color: 'var(--text-secondary)',
             }}
           >
-            View GitHub
+            Email Me
           </a>
         </motion.div>
       </motion.div>
