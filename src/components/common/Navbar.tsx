@@ -114,7 +114,7 @@ export function Navbar() {
 
   return (
     <header
-      className="fixed inset-x-0 top-0 z-10 backdrop-blur transition-shadow"
+      className="fixed inset-x-0 top-0 z-50 backdrop-blur transition-shadow"
       style={{
         backgroundColor: 'var(--bg-secondary)',
         borderBottom: '1px solid var(--border)',
