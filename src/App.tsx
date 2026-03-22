@@ -1,13 +1,14 @@
+import { Footer, Hero, Navbar } from './components';
+
 function App() {
   return (
-    <main className="app-shell">
-      <p className="eyebrow">Portfolio</p>
-      <h1>Vitalii Fedunyk</h1>
-      <p className="intro">
-        React + TypeScript starter for rebuilding the portfolio with a cleaner
-        commit history.
-      </p>
-    </main>
+    <div className="min-h-screen bg-neutral-950 text-neutral-50">
+      <Navbar />
+      <main className="flex min-h-screen flex-col">
+        <Hero />
+        <Footer />
+      </main>
+    </div>
   );
 }
 
