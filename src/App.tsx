@@ -1,19 +1,20 @@
 import { lazy, Suspense, useEffect, useState } from 'react';
 import {
-  AboutOverlay,
-  Footer,
-  Hero,
   Navbar,
-  ProjectsOverlay,
+  Hero,
+  Footer,
   Section,
+  AboutOverlay,
+  ProjectsOverlay,
 } from './components';
-import { usePrefersReducedMotion } from './hooks/usePrefersReducedMotion';
 import { useTheme } from './hooks/useTheme';
+import { usePrefersReducedMotion } from './hooks/usePrefersReducedMotion';
 
+// Lazy-load the decorative glow effect so it does not compete with the first paint
 const MouseGlow = lazy(() =>
   import('./components/common/MouseGlow').then((module) => ({
     default: module.MouseGlow,
-  }))
+  })),
 );
 
 function App() {
@@ -22,6 +23,8 @@ function App() {
   const prefersReducedMotion = usePrefersReducedMotion();
   const shouldRenderMouseGlow = theme === 'dark' && !prefersReducedMotion;
 
+  // Delay MouseGlow initialization by 250ms to avoid blocking initial render
+  // and prevent layout shift on page load
   useEffect(() => {
     if (!shouldRenderMouseGlow || isMouseGlowEnabled) {
       return;
@@ -34,22 +37,20 @@ function App() {
     return () => window.clearTimeout(timer);
   }, [isMouseGlowEnabled, shouldRenderMouseGlow]);
 
+  // Keep the sun accent outside <main> so it stays behind every section
   return (
-    <div
-      className="min-h-screen transition-colors duration-300"
-      style={{
-        backgroundColor: 'var(--bg-primary)',
-        color: 'var(--text-primary)',
-      }}
-      data-theme={theme}
-    >
+    <div className="relative min-h-dvh bg-bg-primary flex flex-col overflow-x-hidden">
+      <div
+        className={`sun ${theme === 'light' ? 'sun-visible' : ''}`}
+        aria-hidden="true"
+      />
       <Suspense fallback={null}>
         {shouldRenderMouseGlow && isMouseGlowEnabled && (
           <MouseGlow paused={false} />
         )}
       </Suspense>
       <Navbar />
-      <main className="relative z-20 flex min-h-screen flex-col">
+      <main className="relative z-20 flex-1 flex flex-col">
         <Hero />
         <Section id="about" title="About">
           <AboutOverlay />

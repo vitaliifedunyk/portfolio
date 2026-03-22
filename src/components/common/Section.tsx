@@ -1,5 +1,5 @@
-import type { OverlayRoute } from '../../types/overlay.types';
 import type { ReactNode } from 'react';
+import type { OverlayRoute } from '../../types/overlay.types';
 
 interface SectionProps {
   id: Exclude<OverlayRoute, null>;
@@ -9,12 +9,16 @@ interface SectionProps {
 
 export function Section({ id, title, children }: SectionProps) {
   return (
-    <section id={id} className="px-6 py-16 sm:py-20">
+    <section id={id} className="scroll-mt-28 px-6 py-14 md:py-20">
       <div className="mx-auto w-full max-w-6xl">
-        <div className="mb-8 pb-4" style={{ borderBottom: '1px solid var(--border)' }}>
+        <div className="relative mb-8 pb-4 md:mb-10">
+          <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent to-transparent opacity-50" />
           <h2
-            className="text-2xl font-semibold tracking-tight sm:text-3xl"
-            style={{ color: 'var(--text-primary)' }}
+            className="text-2xl font-serif font-light text-text-primary md:text-3xl"
+            style={{
+              fontFamily: 'var(--font-serif)',
+              letterSpacing: '-0.02em',
+            }}
           >
             {title}
           </h2>

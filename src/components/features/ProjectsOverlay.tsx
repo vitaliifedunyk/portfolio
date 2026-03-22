@@ -1,11 +1,16 @@
 import { useMemo, useState } from 'react';
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import { PROJECTS } from '../../data/constants';
+import {
+  PREMIUM_EASE,
+  PREMIUM_EXIT_EASE,
+  PREMIUM_LAYOUT_TRANSITION,
+} from '../../lib/motion';
 import type { ProjectTrack } from '../../types/content.types';
 
 type ProjectFilter = 'all' | ProjectTrack;
 
-const filters: Array<{ id: ProjectFilter; label: string }> = [
+const PROJECT_FILTERS: Array<{ id: ProjectFilter; label: string }> = [
   { id: 'all', label: 'All' },
   { id: 'html-css', label: 'HTML/CSS' },
   { id: 'javascript', label: 'JavaScript' },
@@ -13,24 +18,46 @@ const filters: Array<{ id: ProjectFilter; label: string }> = [
 ];
 
 const containerVariants = {
-  hidden: { opacity: 0 },
+  hidden: {},
   visible: {
-    opacity: 1,
     transition: {
-      delayChildren: 0.08,
       staggerChildren: 0.08,
+      delayChildren: 0.04,
+    },
+  },
+  exit: {
+    transition: {
+      staggerChildren: 0.045,
+      staggerDirection: -1,
     },
   },
 };
 
 const itemVariants = {
-  hidden: { opacity: 0, y: 16 },
+  hidden: {
+    opacity: 0,
+    scale: 0.9,
+    y: 18,
+    filter: 'blur(10px)',
+  },
   visible: {
     opacity: 1,
+    scale: 1,
     y: 0,
+    filter: 'blur(0px)',
     transition: {
-      duration: 0.42,
-      ease: [0.22, 1, 0.36, 1] as const,
+      duration: 0.46,
+      ease: PREMIUM_EASE,
+    },
+  },
+  exit: {
+    opacity: 0,
+    scale: 0.8,
+    y: 10,
+    filter: 'blur(8px)',
+    transition: {
+      duration: 0.28,
+      ease: PREMIUM_EXIT_EASE,
     },
   },
 };
@@ -39,118 +66,150 @@ export function ProjectsOverlay() {
   const [activeFilter, setActiveFilter] = useState<ProjectFilter>('all');
 
   const filteredProjects = useMemo(() => {
-    if (activeFilter === 'all') {
-      return PROJECTS;
-    }
-
+    if (activeFilter === 'all') return PROJECTS;
     return PROJECTS.filter((project) => project.tracks.includes(activeFilter));
   }, [activeFilter]);
 
   return (
-    <motion.div
-      variants={containerVariants}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, amount: 0.2 }}
-      className="space-y-10"
-    >
-      <motion.div variants={itemVariants} className="flex flex-wrap gap-2">
-        {filters.map((filter) => (
-          <button
-            key={filter.id}
-            onClick={() => setActiveFilter(filter.id)}
-            className={`rounded-full px-3 py-1.5 text-sm transition-colors ${
-              activeFilter === filter.id
-                ? ''
-                : 'hover:opacity-100'
-            }`}
-            style={
-              activeFilter === filter.id
-                ? {
-                    backgroundColor: 'var(--accent)',
-                    border: '1px solid var(--accent)',
-                    color: 'var(--accent-contrast)',
-                  }
-                : {
-                    border: '1px solid var(--border)',
-                    color: 'var(--text-secondary)',
-                    opacity: 0.88,
-                  }
-            }
-          >
-            {filter.label}
-          </button>
-        ))}
-      </motion.div>
+    <div className="mx-auto w-full max-w-[56rem] pt-8">
+      <motion.div className="w-full space-y-12">
+        <div className="flex flex-wrap gap-2 md:gap-3">
+          {PROJECT_FILTERS.map((filter) => (
+            <button
+              key={filter.id}
+              onClick={() => setActiveFilter(filter.id)}
+              disabled={activeFilter === filter.id}
+              className={`text-xs sm:text-sm font-mono px-3 py-1.5 border rounded-md transition-colors ${
+                activeFilter === filter.id
+                  ? 'text-accent border-accent'
+                  : 'text-text-muted border-border/80 hover:text-accent-hover hover:border-accent'
+              }`}
+            >
+              {filter.label}
+            </button>
+          ))}
+        </div>
 
-      <div className="space-y-8">
-        {filteredProjects.map((project) => (
-          <motion.article
-            key={project.id}
-            variants={itemVariants}
-            className="pb-8 last:pb-0"
-            style={{ borderBottom: '1px solid var(--border)' }}
-          >
-            <div className="mb-4 flex items-start justify-between gap-4">
-              <div>
-                <h3
-                  className="text-2xl font-semibold"
-                  style={{ color: 'var(--text-primary)' }}
-                >
-                  {project.title}
-                </h3>
-                <p
-                  className="mt-3 max-w-3xl text-sm leading-7"
-                  style={{ color: 'var(--text-secondary)' }}
-                >
-                  {project.description}
-                </p>
-              </div>
-              <div className="flex shrink-0 gap-2">
-                <a
-                  href={project.liveUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="rounded-full px-4 py-2 text-sm font-medium"
-                  style={{
-                    backgroundColor: 'var(--accent)',
-                    color: 'var(--accent-contrast)',
-                  }}
-                >
-                  Live
-                </a>
-                <a
-                  href={project.githubUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="rounded-full px-4 py-2 text-sm font-medium"
-                  style={{
-                    border: '1px solid var(--border)',
-                    color: 'var(--text-secondary)',
-                  }}
-                >
-                  Repo
-                </a>
-              </div>
-            </div>
+        <AnimatePresence initial={false} mode="popLayout">
+          {filteredProjects.length === 0 && (
+            <motion.p
+              key="empty-projects"
+              initial={{ opacity: 0, y: 10, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -10, scale: 0.96 }}
+              transition={{ duration: 0.28, ease: PREMIUM_EASE }}
+              className="text-text-muted text-sm sm:text-base font-sans"
+            >
+              No projects in this category yet. More coming soon.
+            </motion.p>
+          )}
 
-            <div className="flex flex-wrap gap-2">
-              {project.technologies.map((tech) => (
-                <span
-                  key={tech}
-                  className="rounded-full px-3 py-1 text-xs uppercase tracking-[0.12em]"
-                  style={{
-                    border: '1px solid var(--border)',
-                    color: 'var(--text-muted)',
-                  }}
+          {filteredProjects.length > 0 && (
+            <motion.div
+              key={activeFilter}
+              layout
+              variants={containerVariants}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              className="space-y-12"
+              transition={PREMIUM_LAYOUT_TRANSITION}
+            >
+              {filteredProjects.map((project) => (
+                <motion.div
+                  key={project.id}
+                  layout
+                  variants={itemVariants}
+                  transition={PREMIUM_LAYOUT_TRANSITION}
+                  className="group border-b border-border pb-12 last:border-b-0 last:pb-0"
+                  style={{ width: '100%' }}
                 >
-                  {tech}
-                </span>
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    <span className="text-[11px] sm:text-xs font-mono text-text-muted border border-border/80 rounded-md px-2.5 py-1">
+                      {project.type === 'course'
+                        ? project.isRefactored
+                          ? 'Course Project (Refactored)'
+                          : 'Course Project'
+                        : 'Personal Project'}
+                    </span>
+                  </div>
+
+                  <div
+                    className="flex items-start justify-between gap-4 mb-4 md:mb-5"
+                    style={{ width: '100%' }}
+                  >
+                    <h3
+                      className="text-2xl sm:text-3xl md:text-[2rem] font-serif font-light text-text-primary flex-1"
+                      style={{
+                        fontFamily: 'var(--font-serif)',
+                        letterSpacing: '-0.02em',
+                      }}
+                    >
+                      {project.title}
+                    </h3>
+                    <div className="flex items-center gap-2 sm:gap-3">
+                      <a
+                        href={project.liveUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-xs sm:text-sm font-mono text-bg-primary bg-accent border border-accent hover:bg-accent-hover hover:border-accent-hover rounded-md px-3 py-1.5 transition-colors"
+                        aria-label="View live project"
+                      >
+                        Live Demo
+                      </a>
+                      <a
+                        href={project.githubUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-xs sm:text-sm font-mono text-accent border border-accent hover:text-accent-hover hover:border-accent-hover hover:bg-bg-secondary/50 rounded-md px-3 py-1.5 transition-colors"
+                        aria-label="View GitHub repository"
+                      >
+                        Repo
+                      </a>
+                    </div>
+                  </div>
+                  <p
+                    className="text-text-secondary text-sm sm:text-[15px] font-sans mb-5 md:mb-6 leading-relaxed"
+                    style={{
+                      lineHeight: '1.68',
+                      width: '100%',
+                      maxWidth: '48rem',
+                      hyphens: 'none',
+                    }}
+                  >
+                    {project.description}
+                  </p>
+                  <div className="mb-5 md:mb-6 rounded-md border border-border/70 bg-bg-secondary/40 p-3 sm:p-4 text-left">
+                    <p className="text-[11px] sm:text-xs font-mono uppercase tracking-[0.08em] text-accent mb-2">
+                      Challenge
+                    </p>
+                    <p className="text-text-secondary text-sm sm:text-[15px] font-sans leading-relaxed mb-3">
+                      {project.challenge}
+                    </p>
+                    <p className="text-[11px] sm:text-xs font-mono uppercase tracking-[0.08em] text-accent mb-2">
+                      Fix
+                    </p>
+                    <p className="text-text-secondary text-sm sm:text-[15px] font-sans leading-relaxed">
+                      {project.solution}
+                    </p>
+                  </div>
+                  <div className="flex flex-wrap gap-2 md:gap-3">
+                    {project.technologies.map((tech) => (
+                      <span
+                        key={tech}
+                        className="text-text-muted font-mono text-xs sm:text-sm px-3 py-1.5 border border-border rounded-sm"
+                        style={{ letterSpacing: '0.02em' }}
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </motion.div>
               ))}
-            </div>
-          </motion.article>
-        ))}
-      </div>
-    </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </motion.div>
+    </div>
   );
 }
