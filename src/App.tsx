@@ -6,10 +6,20 @@ import {
   ProjectsOverlay,
   Section,
 } from './components';
+import { useTheme } from './hooks/useTheme';
 
 function App() {
+  const { theme } = useTheme();
+
   return (
-    <div className="min-h-screen bg-neutral-950 text-neutral-50">
+    <div
+      className="min-h-screen transition-colors duration-300"
+      style={{
+        backgroundColor: 'var(--bg-primary)',
+        color: 'var(--text-primary)',
+      }}
+      data-theme={theme}
+    >
       <Navbar />
       <main className="flex min-h-screen flex-col">
         <Hero />

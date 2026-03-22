@@ -34,19 +34,22 @@ export function Hero() {
       >
         <motion.p
           variants={itemVariants}
-          className="mb-6 font-mono text-sm uppercase tracking-[0.24em] text-neutral-500"
+          className="mb-6 font-mono text-sm uppercase tracking-[0.24em]"
+          style={{ color: 'var(--text-muted)' }}
         >
           Fullstack Developer
         </motion.p>
         <motion.h1
           variants={itemVariants}
-          className="mb-8 text-5xl font-semibold tracking-tight text-white sm:text-7xl"
+          className="mb-8 text-5xl font-semibold tracking-tight sm:text-7xl"
+          style={{ color: 'var(--text-primary)' }}
         >
           Vitalii Fedunyk
         </motion.h1>
         <motion.p
           variants={itemVariants}
-          className="mb-10 max-w-2xl text-base leading-7 text-neutral-300 sm:text-lg"
+          className="mb-10 max-w-2xl text-base leading-7 sm:text-lg"
+          style={{ color: 'var(--text-secondary)' }}
         >
           I build fast, clean web products from polished interfaces to reliable
           application logic.
@@ -57,7 +60,11 @@ export function Hero() {
         >
           <a
             href="mailto:vitaliifedunyk.dev@gmail.com"
-            className="rounded-full bg-white px-6 py-3 text-sm font-medium text-black transition-transform hover:-translate-y-0.5"
+            className="rounded-full px-6 py-3 text-sm font-medium transition-transform hover:-translate-y-0.5"
+            style={{
+              backgroundColor: 'var(--accent)',
+              color: 'var(--accent-contrast)',
+            }}
           >
             Get in touch
           </a>
@@ -65,7 +72,11 @@ export function Hero() {
             href="https://github.com/vitaliifedunyk"
             target="_blank"
             rel="noopener noreferrer"
-            className="rounded-full border border-white/15 px-6 py-3 text-sm font-medium text-neutral-200 transition-colors hover:border-white/40 hover:text-white"
+            className="rounded-full px-6 py-3 text-sm font-medium transition-opacity hover:opacity-100"
+            style={{
+              border: '1px solid var(--border)',
+              color: 'var(--text-secondary)',
+            }}
           >
             View GitHub
           </a>

@@ -112,11 +112,24 @@ export function ProjectsOverlay() {
           <button
             key={filter.id}
             onClick={() => setActiveFilter(filter.id)}
-            className={`rounded-full border px-3 py-1.5 text-sm transition-colors ${
+            className={`rounded-full px-3 py-1.5 text-sm transition-colors ${
               activeFilter === filter.id
-                ? 'border-white bg-white text-black'
-                : 'border-white/12 text-neutral-300 hover:border-white/40 hover:text-white'
+                ? ''
+                : 'hover:opacity-100'
             }`}
+            style={
+              activeFilter === filter.id
+                ? {
+                    backgroundColor: 'var(--accent)',
+                    border: '1px solid var(--accent)',
+                    color: 'var(--accent-contrast)',
+                  }
+                : {
+                    border: '1px solid var(--border)',
+                    color: 'var(--text-secondary)',
+                    opacity: 0.88,
+                  }
+            }
           >
             {filter.label}
           </button>
@@ -128,14 +141,21 @@ export function ProjectsOverlay() {
           <motion.article
             key={project.id}
             variants={itemVariants}
-            className="border-b border-white/10 pb-8 last:border-b-0 last:pb-0"
+            className="pb-8 last:pb-0"
+            style={{ borderBottom: '1px solid var(--border)' }}
           >
             <div className="mb-4 flex items-start justify-between gap-4">
               <div>
-                <h3 className="text-2xl font-semibold text-white">
+                <h3
+                  className="text-2xl font-semibold"
+                  style={{ color: 'var(--text-primary)' }}
+                >
                   {project.title}
                 </h3>
-                <p className="mt-3 max-w-3xl text-sm leading-7 text-neutral-300">
+                <p
+                  className="mt-3 max-w-3xl text-sm leading-7"
+                  style={{ color: 'var(--text-secondary)' }}
+                >
                   {project.description}
                 </p>
               </div>
@@ -144,7 +164,11 @@ export function ProjectsOverlay() {
                   href={project.liveUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="rounded-full bg-white px-4 py-2 text-sm font-medium text-black"
+                  className="rounded-full px-4 py-2 text-sm font-medium"
+                  style={{
+                    backgroundColor: 'var(--accent)',
+                    color: 'var(--accent-contrast)',
+                  }}
                 >
                   Live
                 </a>
@@ -152,7 +176,11 @@ export function ProjectsOverlay() {
                   href={project.githubUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="rounded-full border border-white/12 px-4 py-2 text-sm font-medium text-neutral-200"
+                  className="rounded-full px-4 py-2 text-sm font-medium"
+                  style={{
+                    border: '1px solid var(--border)',
+                    color: 'var(--text-secondary)',
+                  }}
                 >
                   Repo
                 </a>
@@ -163,7 +191,11 @@ export function ProjectsOverlay() {
               {project.technologies.map((tech) => (
                 <span
                   key={tech}
-                  className="rounded-full border border-white/12 px-3 py-1 text-xs uppercase tracking-[0.12em] text-neutral-400"
+                  className="rounded-full px-3 py-1 text-xs uppercase tracking-[0.12em]"
+                  style={{
+                    border: '1px solid var(--border)',
+                    color: 'var(--text-muted)',
+                  }}
                 >
                   {tech}
                 </span>

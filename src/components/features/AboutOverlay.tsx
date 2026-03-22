@@ -56,7 +56,11 @@ function SkillGroup({
         {items.map((item) => (
           <span
             key={item}
-            className="rounded-full border border-white/12 px-3 py-1.5 text-sm text-neutral-300"
+            className="rounded-full px-3 py-1.5 text-sm"
+            style={{
+              border: '1px solid var(--border)',
+              color: 'var(--text-secondary)',
+            }}
           >
             {item}
           </span>
@@ -80,7 +84,8 @@ export function AboutOverlay() {
           <motion.p
             key={paragraph}
             variants={itemVariants}
-            className="text-base leading-7 text-neutral-300"
+            className="text-base leading-7"
+            style={{ color: 'var(--text-secondary)' }}
           >
             {paragraph}
           </motion.p>
