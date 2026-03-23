@@ -1,23 +1,23 @@
-import { useMemo, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
-import { PROJECTS } from "../../data/constants";
+import { useMemo, useState } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
+import { PROJECTS } from '../../data/constants';
 import {
   PREMIUM_EASE,
   PREMIUM_EXIT_EASE,
   PREMIUM_LAYOUT_TRANSITION,
-} from "../../lib/motion";
-import type { ProjectTrack } from "../../types/content.types";
+} from '../../lib/motion';
+import type { ProjectTrack } from '../../types/content.types';
 
-type ProjectFilter = "all" | ProjectTrack;
+type ProjectFilter = 'all' | ProjectTrack;
 
 const PROJECT_FILTERS: Array<{ id: ProjectFilter; label: string }> = [
-  { id: "all", label: "All" },
-  { id: "html-css", label: "HTML/CSS" },
-  { id: "javascript", label: "JavaScript" },
-  { id: "tailwindcss", label: "Tailwind CSS" },
+  { id: 'all', label: 'All' },
+  { id: 'html-css', label: 'HTML/CSS' },
+  { id: 'javascript', label: 'JavaScript' },
+  { id: 'tailwindcss', label: 'Tailwind CSS' },
 ];
 
-// 🔥 container animation (stagger)
+// Stagger child animations when the project list enters.
 const containerVariants = {
   visible: {
     transition: {
@@ -26,7 +26,7 @@ const containerVariants = {
   },
 };
 
-// 🔥 item animation (clean + minimal)
+// Keep per-item transitions aligned with the list layout animation.
 const itemVariants = {
   hidden: {
     opacity: 0,
@@ -51,17 +51,16 @@ const itemVariants = {
 };
 
 export function ProjectsOverlay() {
-  const [activeFilter, setActiveFilter] = useState<ProjectFilter>("all");
+  const [activeFilter, setActiveFilter] = useState<ProjectFilter>('all');
 
   const filteredProjects = useMemo(() => {
-    if (activeFilter === "all") return PROJECTS;
+    if (activeFilter === 'all') return PROJECTS;
     return PROJECTS.filter((project) => project.tracks.includes(activeFilter));
   }, [activeFilter]);
 
   return (
     <div className="mx-auto w-full max-w-[56rem] pt-8">
       <motion.div className="w-full space-y-12">
-        {/* 🔘 FILTER BUTTONS */}
         <div className="flex flex-wrap gap-2 md:gap-3">
           {PROJECT_FILTERS.map((filter) => (
             <button
@@ -70,8 +69,8 @@ export function ProjectsOverlay() {
               disabled={activeFilter === filter.id}
               className={`text-xs sm:text-sm font-mono px-3 py-1.5 border rounded-md transition-colors ${
                 activeFilter === filter.id
-                  ? "text-accent border-accent"
-                  : "text-text-muted border-border/80 hover:text-accent-hover hover:border-accent"
+                  ? 'text-accent border-accent'
+                  : 'text-text-muted border-border/80 hover:text-accent-hover hover:border-accent'
               }`}
             >
               {filter.label}
@@ -79,7 +78,6 @@ export function ProjectsOverlay() {
           ))}
         </div>
 
-        {/* 🔥 PROJECT LIST */}
         <motion.div
           layout
           variants={containerVariants}
@@ -115,11 +113,11 @@ export function ProjectsOverlay() {
                 >
                   <div className="flex flex-wrap gap-2 mb-4">
                     <span className="text-[11px] sm:text-xs font-mono text-text-muted border border-border/80 rounded-md px-2.5 py-1">
-                      {project.type === "course"
+                      {project.type === 'course'
                         ? project.isRefactored
-                          ? "Course Project (Refactored)"
-                          : "Course Project"
-                        : "Personal Project"}
+                          ? 'Course Project (Refactored)'
+                          : 'Course Project'
+                        : 'Personal Project'}
                     </span>
                   </div>
 
@@ -127,8 +125,8 @@ export function ProjectsOverlay() {
                     <h3
                       className="text-2xl sm:text-3xl md:text-[2rem] font-serif font-light text-text-primary flex-1"
                       style={{
-                        fontFamily: "var(--font-serif)",
-                        letterSpacing: "-0.02em",
+                        fontFamily: 'var(--font-serif)',
+                        letterSpacing: '-0.02em',
                       }}
                     >
                       {project.title}

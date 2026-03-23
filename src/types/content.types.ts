@@ -1,5 +1,3 @@
-export type NavHref = '#about' | '#projects';
-
 export interface PersonalInfo {
   name: string;
   role: string;
@@ -10,7 +8,7 @@ export interface PersonalInfo {
 
 export interface NavLink {
   label: string;
-  href: NavHref;
+  href: '#about' | '#projects';
 }
 
 export type SocialIcon = 'github' | 'linkedin' | 'telegram';

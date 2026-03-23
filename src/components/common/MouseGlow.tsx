@@ -1,6 +1,5 @@
 import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
-import { gsap } from 'gsap';
 import { useTheme } from '../../hooks/useTheme';
 
 interface MouseGlowProps {
@@ -49,13 +48,12 @@ export function MouseGlow({ paused = false }: MouseGlowProps) {
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
 
-    // Add fade transition with GSAP
+    // Fade the canvas in after it mounts without pulling in an extra animation library.
     renderer.domElement.style.opacity = '0';
+    renderer.domElement.style.transition = 'opacity 1s ease-out';
     container.appendChild(renderer.domElement);
-    gsap.to(renderer.domElement, {
-      opacity: 1,
-      duration: 1,
-      ease: 'power2.out',
+    const fadeInFrameId = requestAnimationFrame(() => {
+      renderer.domElement.style.opacity = '1';
     });
 
     // DARK THEME: Subtle moving particles with static color/opacity
@@ -175,7 +173,6 @@ export function MouseGlow({ paused = false }: MouseGlowProps) {
       }
 
       const elapsedTime = clock.getElapsedTime();
-      clock.getDelta();
 
       material.uniforms.time.value = elapsedTime;
 
@@ -187,6 +184,7 @@ export function MouseGlow({ paused = false }: MouseGlowProps) {
 
     return () => {
       cancelAnimationFrame(animationId);
+      cancelAnimationFrame(fadeInFrameId);
       window.removeEventListener('resize', handleResize);
 
       geometry.dispose();
