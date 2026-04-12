@@ -80,11 +80,11 @@ export const PROJECTS: Project[] = [
     id: 1,
     title: 'Portfolio',
     description:
-      'Personal portfolio built with React, TypeScript, Tailwind CSS, and Framer Motion to present selected work in a cleaner, more intentional way.',
+      'Personal portfolio built with React, TypeScript, Tailwind CSS, and Framer Motion to present selected work through a clearer structure and more deliberate visual system.',
     challenge:
-      'The main challenge was turning a simple portfolio into something that feels curated rather than generic, while keeping the content easy to update.',
+      'The challenge was making the portfolio feel curated instead of template-like, while keeping the content structure simple to maintain.',
     solution:
-      'I centralized the content, refined the visual system, and restructured the projects section to highlight stronger work without adding clutter.',
+      'I centralized the content in one data layer, refined the visual language, and reorganized the projects section to highlight stronger work without adding noise.',
     technologies: [
       'React',
       'TypeScript',
@@ -101,11 +101,11 @@ export const PROJECTS: Project[] = [
     id: 2,
     title: 'YachtJet',
     description:
-      'Multi-section yacht rental website focused on polished UI and responsive behavior. Built with reusable layout patterns and interactive states, then refined after initial course version.',
+      'Multi-section yacht rental landing page focused on polished UI, responsive layout, and cleaner interaction states. The project was later refined beyond the original course version.',
     challenge:
-      'The header and navigation interactions conflicted with section anchors on mobile devices.',
+      'Navigation behavior was inconsistent on mobile because the header state and anchor scrolling could interfere with each other.',
     solution:
-      'Refined anchor offsets and interaction states to make navigation predictable and avoid overlap issues.',
+      'I adjusted anchor offsets, refined the header interaction logic, and made section navigation more predictable across screen sizes.',
     technologies: [
       'Tailwind CSS',
       'Responsive Layout',
@@ -123,11 +123,11 @@ export const PROJECTS: Project[] = [
     id: 3,
     title: 'EcoTote',
     description:
-      'Responsive landing page for an eco-friendly tote bag brand. Implemented semantic layout, adaptive sections, and clean component styling. Later refactored and improved after course submission.',
+      'Responsive landing page for an eco-friendly tote bag brand, built with semantic structure, adaptive sections, and cleaner visual styling. The project was later refactored after the course version.',
     challenge:
-      'Maintaining consistent spacing and typography across breakpoints caused noticeable visual jumps.',
+      'Spacing and typography were shifting too sharply between breakpoints, which made the layout feel uneven.',
     solution:
-      'Reworked the spacing scale and unified typography tokens to keep layout rhythm stable on all screen sizes.',
+      'I reworked the spacing scale and aligned typography decisions across breakpoints to keep the layout rhythm more stable.',
     technologies: [
       'Tailwind CSS',
       'Responsive Layout',
@@ -143,13 +143,13 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 4,
-    title: 'Bug Hunters',
+    title: 'Furniture Store',
     description:
-      'Team course project built with JavaScript, featuring a responsive multi-section interface, shared components, and collaborative Git workflow across the whole team.',
+      'Team course project for a furniture store, built with JavaScript, responsive sections, API integration, and shared component work. "Bug Hunters" was our team name; the product itself was Mebleriia.',
     challenge:
-      'The main difficulty was keeping layout, interactions, and code structure consistent while several contributors were working in parallel.',
+      'The main challenge was keeping the UI, interactions, and code structure consistent while several contributors were building features in parallel.',
     solution:
-      'We split responsibilities clearly, aligned shared styles and component behavior early, and used Git coordination to merge features without breaking the overall UI.',
+      'We divided responsibilities clearly, aligned shared styles and UI patterns early, and coordinated merges carefully to keep the final interface consistent.',
     technologies: ['JavaScript', 'REST API', 'Axios', 'Swiper', 'Team Project'],
     liveUrl: 'https://vitaliifedunyk.github.io/bug-hunters/',
     githubUrl: 'https://github.com/vitaliifedunyk/bug-hunters',
@@ -161,11 +161,11 @@ export const PROJECTS: Project[] = [
     id: 5,
     title: 'JobFlow',
     description:
-      'Job application tracker built in vanilla JS to add, update, and monitor application statuses with localStorage persistence and a straightforward UI.',
+      'Job application tracker built in vanilla JavaScript to add, update, and monitor application statuses with localStorage persistence and a straightforward interface.',
     challenge:
-      'Status updates, edits, and removals had to stay in sync without making the interface feel messy or unreliable.',
+      'Status changes, edits, and deletions all needed to stay in sync without making the interface feel cluttered or unreliable.',
     solution:
-      'I centralized state updates and simplified the rendering flow so every application change is reflected clearly and consistently.',
+      'I centralized the data-update flow and simplified rendering so every application change is reflected clearly and consistently.',
     technologies: [
       'JavaScript',
       'CRUD',
@@ -182,11 +182,11 @@ export const PROJECTS: Project[] = [
     id: 6,
     title: 'RepoFinder',
     description:
-      'TypeScript-based GitHub repository explorer that queries the GitHub API in real time, shows key stats, and handles loading, empty, and error states clearly.',
+      'TypeScript-based GitHub repository explorer that queries the GitHub API in real time, displays key repository stats, and handles loading, empty, and error states clearly.',
     challenge:
-      'API requests needed clearer loading and error handling, especially when no repositories were found.',
+      'The main challenge was making API-driven search feel reliable, especially during loading, failed requests, and empty-result cases.',
     solution:
-      'Added explicit loading, empty, and error states to keep feedback predictable during every search.',
+      'I added explicit loading, empty, and error states so each search gives clear and predictable feedback.',
     technologies: [
       'TypeScript',
       'REST API',
@@ -207,14 +207,15 @@ export const ARCHIVED_PROJECTS: ArchivedProject[] = [
     id: 1,
     title: 'WebStudio',
     note: 'Early course project focused on pixel-accurate HTML/CSS implementation and responsive fundamentals.',
-    liveUrl: 'https://vitaliifedunyk.github.io/goit-markup-hw-06/',
-    githubUrl: 'https://github.com/vitaliifedunyk/goit-markup-hw-06',
+    liveUrl: 'https://vitaliifedunyk.github.io/web-studio/',
+    githubUrl: 'https://github.com/vitaliifedunyk/web-studio',
   },
   {
     id: 2,
     title: 'EcoTote',
-    note: 'Earlier team course version of EcoTote kept as GitHub-only context; the refactored solo version is stronger, so this one stays outside the main showcase.',
-    githubUrl: 'https://github.com/vitaliifedunyk/project-group3',
+    note: 'Earlier team course version of EcoTote kept as supporting context; the refactored solo version is stronger, so this one stays outside the main showcase.',
+    liveUrl: 'https://vitaliifedunyk.github.io/eco-tote-project/',
+    githubUrl: 'https://github.com/vitaliifedunyk/eco-tote-project',
   },
 ];
 
