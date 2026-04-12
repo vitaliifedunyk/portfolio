@@ -71,7 +71,7 @@ export function AboutOverlay() {
         <motion.div variants={itemVariants} className="w-full space-y-10">
           <div className="space-y-3">
             <h3 className="text-text-primary text-sm font-mono tracking-wide uppercase">
-              Core Skills
+              Core stack
             </h3>
             <div className="flex w-full flex-wrap gap-3">
               {CORE_SKILLS.map((skill) => (
@@ -88,7 +88,7 @@ export function AboutOverlay() {
 
           <div className="space-y-3">
             <h3 className="text-text-primary text-sm font-mono tracking-wide uppercase">
-              Currently Learning
+              Used in projects
             </h3>
             <div className="flex w-full flex-wrap gap-3">
               {LEARNING_SKILLS.map((skill) => (

@@ -1,38 +1,35 @@
-# Personal Portfolio — Vitalii Fedunyk
+# Vitalii Fedunyk Portfolio
 
-> Fullstack developer portfolio built with React 19, TypeScript, Tailwind CSS v4, and Framer Motion.
+Personal portfolio website built with React, TypeScript, Tailwind CSS v4, and Framer Motion.
+It presents selected projects, technical background, and core frontend skills in a lightweight single-page format.
 
-![preview](./assets/preview.png)
-
-## 🚀 Live Demo
+## Live
 
 [vitaliifedunyk.vercel.app](https://vitaliifedunyk.vercel.app/)
 
-## 🛠️ Tech Stack
+## Stack
 
-![React](https://img.shields.io/badge/React_19-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
-![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
-![TailwindCSS](https://img.shields.io/badge/Tailwind_v4-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
-![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)
-![Framer Motion](https://img.shields.io/badge/Framer_Motion-black?style=for-the-badge&logo=framer&logoColor=white)
-![Three.js](https://img.shields.io/badge/Three.js-000000?style=for-the-badge&logo=three.js&logoColor=white)
+- React 19
+- TypeScript
+- Tailwind CSS v4
+- Vite
+- Framer Motion
 
-## ✨ Features
+## Highlights
 
-- Single-page layout with hash-based navigation synced to scroll position
-- Animated entrance sequences using Framer Motion with `usePrefersReducedMotion` support
-- Dark / light theme toggle with CSS variable theming and smooth transitions
-- Mouse glow effect (dark mode only) — lazy-loaded, respects reduced motion preferences
-- Interactive projects section with category filters and challenge/solution notes per project
-- All portfolio content centralized in `src/data/constants.ts` — easy to update
+- Single-page portfolio with hash-based navigation
+- Motion-driven UI with reduced-motion support
+- Theme switching with CSS-variable styling
+- Filterable projects section with challenge/solution context
+- Centralized editable content in `src/data/constants.ts`
 
-## 📦 Getting Started
+## Getting Started
 
 ### Prerequisites
 
-- Node.js v18+
+- Node.js 18 or newer
 
-### Installation
+### Run Locally
 
 ```bash
 git clone https://github.com/vitaliifedunyk/portfolio
@@ -41,34 +38,29 @@ npm install
 npm run dev
 ```
 
-## 🗂️ Project Structure
-
-src/
-├── components/
-│ ├── common/ # Navbar, Footer, Section, ThemeToggle, MouseGlow
-│ └── features/ # Hero, AboutOverlay, ProjectsOverlay
-├── context/ # ThemeContext
-├── data/
-│ └── constants.ts # All portfolio content lives here — edit this to update the site
-├── hooks/ # useHashRoute, useTheme, usePrefersReducedMotion
-├── lib/ # Shared motion config
-└── types/ # TypeScript interfaces for content and theme
-
-## 🧪 Tests
+### Production Build
 
 ```bash
-# Tests coming soon — Vitest + React Testing Library
-npm run test
+npm run build
 ```
 
-## 🔮 Future Improvements
+## Project Structure
 
-- [ ] Add backend projects section with Node.js/Express examples
-- [ ] Blog section (MDX-based)
-- [ ] Contact form with email integration
-- [ ] E2E tests with Playwright
-- [ ] i18n support (EN/UA)
+```text
+src/
+├── components/   UI sections and shared interface elements
+├── context/      Theme state
+├── data/         Portfolio content and project metadata
+├── hooks/        Reusable React hooks
+├── lib/          Motion and shared configuration
+└── types/        TypeScript content models
+```
 
-## 📄 License
+## Content Updates
+
+Most visible portfolio content is managed in `src/data/constants.ts`.
+This keeps project descriptions, links, and text easy to update without rewriting components.
+
+## License
 
 MIT

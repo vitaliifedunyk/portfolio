@@ -19,7 +19,11 @@ export interface SocialLink {
   icon: SocialIcon;
 }
 
-export type ProjectTrack = 'html-css' | 'javascript' | 'tailwindcss';
+export type ProjectTrack =
+  | 'web-apps'
+  | 'landing-pages'
+  | 'team-projects'
+  | 'typescript';
 export type ProjectType = 'course' | 'personal';
 
 export interface Project {
@@ -32,6 +36,15 @@ export interface Project {
   liveUrl: string;
   githubUrl: string;
   type: ProjectType;
+  isTeamProject?: boolean;
   isRefactored?: boolean;
   tracks: ProjectTrack[];
+}
+
+export interface ArchivedProject {
+  id: number;
+  title: string;
+  note: string;
+  liveUrl?: string;
+  githubUrl: string;
 }

@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { PROJECTS } from '../../data/constants';
+import { ARCHIVED_PROJECTS, PROJECTS } from '../../data/constants';
 import {
   PREMIUM_EASE,
   PREMIUM_EXIT_EASE,
@@ -12,9 +12,10 @@ type ProjectFilter = 'all' | ProjectTrack;
 
 const PROJECT_FILTERS: Array<{ id: ProjectFilter; label: string }> = [
   { id: 'all', label: 'All' },
-  { id: 'html-css', label: 'HTML/CSS' },
-  { id: 'javascript', label: 'JavaScript' },
-  { id: 'tailwindcss', label: 'Tailwind CSS' },
+  { id: 'web-apps', label: 'Web Apps' },
+  { id: 'landing-pages', label: 'Landing Pages' },
+  { id: 'team-projects', label: 'Team Projects' },
+  { id: 'typescript', label: 'TypeScript' },
 ];
 
 // Stagger child animations when the project list enters.
@@ -49,6 +50,15 @@ const itemVariants = {
     },
   },
 };
+
+function getProjectLabel(
+  project: (typeof PROJECTS)[number]
+): 'Personal Project' | 'Course Project' | 'Team Course Project' | 'Refactored Course Project' {
+  if (project.type === 'personal') return 'Personal Project';
+  if (project.isTeamProject) return 'Team Course Project';
+  if (project.isRefactored) return 'Refactored Course Project';
+  return 'Course Project';
+}
 
 export function ProjectsOverlay() {
   const [activeFilter, setActiveFilter] = useState<ProjectFilter>('all');
@@ -113,11 +123,7 @@ export function ProjectsOverlay() {
                 >
                   <div className="flex flex-wrap gap-2 mb-4">
                     <span className="text-[11px] sm:text-xs font-mono text-text-muted border border-border/80 rounded-md px-2.5 py-1">
-                      {project.type === 'course'
-                        ? project.isRefactored
-                          ? 'Course Project (Refactored)'
-                          : 'Course Project'
-                        : 'Personal Project'}
+                      {getProjectLabel(project)}
                     </span>
                   </div>
 
@@ -187,6 +193,61 @@ export function ProjectsOverlay() {
             )}
           </AnimatePresence>
         </motion.div>
+
+        {ARCHIVED_PROJECTS.length > 0 ? (
+          <motion.div
+            variants={itemVariants}
+            initial="hidden"
+            animate="visible"
+            className="rounded-md border border-border/70 bg-bg-secondary/30 p-4 sm:p-5"
+          >
+            <p className="mb-2 text-[11px] font-mono uppercase tracking-[0.08em] text-accent sm:text-xs">
+              Earlier Course Projects
+            </p>
+            <p className="mb-4 max-w-[42rem] text-sm font-sans leading-relaxed text-text-secondary sm:text-[15px]">
+              Older work with less emphasis in the main showcase, kept here for context.
+            </p>
+
+            <div className="space-y-4">
+              {ARCHIVED_PROJECTS.map((project) => (
+                <div
+                  key={project.id}
+                  className="flex flex-col gap-3 border-t border-border/60 pt-4 first:border-t-0 first:pt-0 sm:flex-row sm:items-start sm:justify-between"
+                >
+                  <div className="space-y-1">
+                    <h3 className="text-base font-serif font-light text-text-primary sm:text-lg">
+                      {project.title}
+                    </h3>
+                    <p className="max-w-[36rem] text-sm font-sans leading-relaxed text-text-muted">
+                      {project.note}
+                    </p>
+                  </div>
+
+                  <div className="flex items-center gap-2 sm:gap-3">
+                    {project.liveUrl ? (
+                      <a
+                        href={project.liveUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="rounded-md border border-border/80 px-3 py-1.5 text-xs font-mono text-text-muted transition-colors hover:border-accent hover:text-accent-hover sm:text-sm"
+                      >
+                        Live
+                      </a>
+                    ) : null}
+                    <a
+                      href={project.githubUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="rounded-md border border-border/80 px-3 py-1.5 text-xs font-mono text-text-muted transition-colors hover:border-accent hover:text-accent-hover sm:text-sm"
+                    >
+                      GitHub
+                    </a>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+        ) : null}
       </motion.div>
     </div>
   );
