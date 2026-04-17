@@ -18,7 +18,7 @@ export const PERSONAL_INFO: PersonalInfo = {
   tagline:
     'I build responsive interfaces and practical web apps with JavaScript, TypeScript, Tailwind CSS, and React.',
   email: 'vitaliifedunyk.dev@gmail.com',
-  resumeUrl: '#',
+  resumeUrl: '/resume_ats.pdf',
 };
 
 /** Skills displayed in the "Core" column of the About section */
