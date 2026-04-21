@@ -9,6 +9,7 @@ import {
 } from './components';
 import { useTheme } from './hooks/useTheme';
 import { usePrefersReducedMotion } from './hooks/usePrefersReducedMotion';
+import { Analytics } from '@vercel/analytics/react';
 
 // Lazy-load the decorative glow effect so it does not compete with the first paint
 const MouseGlow = lazy(() =>
@@ -60,6 +61,7 @@ function App() {
         </Section>
         <Footer />
       </main>
+      <Analytics />
     </div>
   );
 }
