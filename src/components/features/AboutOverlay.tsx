@@ -1,8 +1,7 @@
 import { motion } from 'framer-motion';
 import {
   ABOUT_PARAGRAPHS,
-  CORE_SKILLS,
-  LEARNING_SKILLS,
+  FRONTEND_SKILLS,
   TOOLS_SKILLS,
 } from '../../data/constants';
 import { PREMIUM_EASE } from '../../lib/motion';
@@ -71,30 +70,13 @@ export function AboutOverlay() {
         <motion.div variants={itemVariants} className="w-full space-y-10">
           <div className="space-y-3">
             <h3 className="text-text-primary text-sm font-mono tracking-wide uppercase">
-              Core stack
+              Frontend Stack
             </h3>
             <div className="flex w-full flex-wrap gap-3">
-              {CORE_SKILLS.map((skill) => (
+              {FRONTEND_SKILLS.map((skill) => (
                 <span
                   key={skill}
-                  className="text-text-muted font-mono text-xs sm:text-sm px-3 py-1.5 border border-border/80 rounded-md hover:border-accent hover:text-accent-hover transition-colors duration-300"
-                  style={{ letterSpacing: '0.02em' }}
-                >
-                  {skill}
-                </span>
-              ))}
-            </div>
-          </div>
-
-          <div className="space-y-3">
-            <h3 className="text-text-primary text-sm font-mono tracking-wide uppercase">
-              Used in projects
-            </h3>
-            <div className="flex w-full flex-wrap gap-3">
-              {LEARNING_SKILLS.map((skill) => (
-                <span
-                  key={skill}
-                  className="text-text-muted font-mono text-xs sm:text-sm px-3 py-1.5 border border-border/80 rounded-md hover:border-accent hover:text-accent-hover transition-colors duration-300"
+                  className="select-none cursor-default text-text-muted font-mono text-xs sm:text-sm px-3 py-1.5 border border-border/80 rounded-md hover:border-accent hover:text-accent-hover transition-colors duration-300"
                   style={{ letterSpacing: '0.02em' }}
                 >
                   {skill}
@@ -111,7 +93,7 @@ export function AboutOverlay() {
               {TOOLS_SKILLS.map((skill) => (
                 <span
                   key={skill}
-                  className="text-text-muted font-mono text-xs sm:text-sm px-3 py-1.5 border border-border/80 rounded-md hover:border-accent hover:text-accent-hover transition-colors duration-300"
+                  className="select-none cursor-default text-text-muted font-mono text-xs sm:text-sm px-3 py-1.5 border border-border/80 rounded-md hover:border-accent hover:text-accent-hover transition-colors duration-300"
                   style={{ letterSpacing: '0.02em' }}
                 >
                   {skill}

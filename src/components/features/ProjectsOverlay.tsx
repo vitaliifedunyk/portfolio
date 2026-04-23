@@ -1,22 +1,29 @@
 import { useMemo, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { ARCHIVED_PROJECTS, PROJECTS } from '../../data/constants';
+import { PROJECTS } from '../../data/constants';
 import {
   PREMIUM_EASE,
   PREMIUM_EXIT_EASE,
   PREMIUM_LAYOUT_TRANSITION,
 } from '../../lib/motion';
-import type { ProjectTrack } from '../../types/content.types';
+import type {
+  ProjectCategory,
+  ProjectFilter as ProjectFilterId,
+} from '../../types/content.types';
 
-type ProjectFilter = 'all' | ProjectTrack;
+type ActiveProjectFilter = 'all' | ProjectFilterId;
 
-const PROJECT_FILTERS: Array<{ id: ProjectFilter; label: string }> = [
+const PROJECT_FILTERS: Array<{ id: ActiveProjectFilter; label: string }> = [
   { id: 'all', label: 'All' },
-  { id: 'web-apps', label: 'Web Apps' },
+  { id: 'applications', label: 'Applications' },
   { id: 'landing-pages', label: 'Landing Pages' },
-  { id: 'team-projects', label: 'Team Projects' },
-  { id: 'typescript', label: 'TypeScript' },
+  { id: 'team-project', label: 'Team Project' },
 ];
+
+const PROJECT_CATEGORY_LABELS: Record<ProjectCategory, string> = {
+  personal: 'Personal Project',
+  team: 'Team Project',
+};
 
 // Stagger child animations when the project list enters.
 const containerVariants = {
@@ -51,21 +58,16 @@ const itemVariants = {
   },
 };
 
-function getProjectLabel(
-  project: (typeof PROJECTS)[number]
-): 'Personal Project' | 'Course Project' | 'Team Course Project' | 'Refactored Course Project' {
-  if (project.type === 'personal') return 'Personal Project';
-  if (project.isTeamProject) return 'Team Course Project';
-  if (project.isRefactored) return 'Refactored Course Project';
-  return 'Course Project';
+function getProjectLabel(project: (typeof PROJECTS)[number]): string {
+  return PROJECT_CATEGORY_LABELS[project.category];
 }
 
 export function ProjectsOverlay() {
-  const [activeFilter, setActiveFilter] = useState<ProjectFilter>('all');
+  const [activeFilter, setActiveFilter] = useState<ActiveProjectFilter>('all');
 
   const filteredProjects = useMemo(() => {
     if (activeFilter === 'all') return PROJECTS;
-    return PROJECTS.filter((project) => project.tracks.includes(activeFilter));
+    return PROJECTS.filter((project) => project.filters.includes(activeFilter));
   }, [activeFilter]);
 
   return (
@@ -77,7 +79,7 @@ export function ProjectsOverlay() {
               key={filter.id}
               onClick={() => setActiveFilter(filter.id)}
               disabled={activeFilter === filter.id}
-              className={`text-xs sm:text-sm font-mono px-3 py-1.5 border rounded-md transition-colors ${
+              className={`cursor-pointer disabled:cursor-default text-xs sm:text-sm font-mono px-3 py-1.5 border rounded-md transition-colors ${
                 activeFilter === filter.id
                   ? 'text-accent border-accent'
                   : 'text-text-muted border-border/80 hover:text-accent-hover hover:border-accent'
@@ -182,7 +184,7 @@ export function ProjectsOverlay() {
                     {project.technologies.map((tech) => (
                       <span
                         key={tech}
-                        className="text-text-muted font-mono text-xs sm:text-sm px-3 py-1.5 border border-border rounded-sm"
+                        className="select-none text-text-muted font-mono text-xs sm:text-sm px-3 py-1.5 border border-border rounded-sm transition-colors duration-300 hover:border-accent hover:text-accent-hover"
                       >
                         {tech}
                       </span>
@@ -193,61 +195,6 @@ export function ProjectsOverlay() {
             )}
           </AnimatePresence>
         </motion.div>
-
-        {ARCHIVED_PROJECTS.length > 0 ? (
-          <motion.div
-            variants={itemVariants}
-            initial="hidden"
-            animate="visible"
-            className="rounded-md border border-border/70 bg-bg-secondary/30 p-4 sm:p-5"
-          >
-            <p className="mb-2 text-[11px] font-mono uppercase tracking-[0.08em] text-accent sm:text-xs">
-              Earlier Course Projects
-            </p>
-            <p className="mb-4 max-w-[42rem] text-sm font-sans leading-relaxed text-text-secondary sm:text-[15px]">
-              Older work with less emphasis in the main showcase, kept here for context.
-            </p>
-
-            <div className="space-y-4">
-              {ARCHIVED_PROJECTS.map((project) => (
-                <div
-                  key={project.id}
-                  className="flex flex-col gap-3 border-t border-border/60 pt-4 first:border-t-0 first:pt-0 sm:flex-row sm:items-start sm:justify-between"
-                >
-                  <div className="space-y-1">
-                    <h3 className="text-base font-serif font-light text-text-primary sm:text-lg">
-                      {project.title}
-                    </h3>
-                    <p className="max-w-[36rem] text-sm font-sans leading-relaxed text-text-muted">
-                      {project.note}
-                    </p>
-                  </div>
-
-                  <div className="flex items-center gap-2 sm:gap-3">
-                    {project.liveUrl ? (
-                      <a
-                        href={project.liveUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="rounded-md border border-border/80 px-3 py-1.5 text-xs font-mono text-text-muted transition-colors hover:border-accent hover:text-accent-hover sm:text-sm"
-                      >
-                        Live
-                      </a>
-                    ) : null}
-                    <a
-                      href={project.githubUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="rounded-md border border-border/80 px-3 py-1.5 text-xs font-mono text-text-muted transition-colors hover:border-accent hover:text-accent-hover sm:text-sm"
-                    >
-                      GitHub
-                    </a>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </motion.div>
-        ) : null}
       </motion.div>
     </div>
   );

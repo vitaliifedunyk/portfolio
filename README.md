@@ -3,6 +3,8 @@
 Personal portfolio website built with React, TypeScript, Tailwind CSS v4, and Framer Motion.
 It presents selected projects, technical background, and core frontend skills in a lightweight single-page format.
 
+![Portfolio preview](assets/preview.png)
+
 ## Live
 
 [vitaliifedunyk.vercel.app](https://vitaliifedunyk.vercel.app/)
