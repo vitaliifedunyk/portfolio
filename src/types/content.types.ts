@@ -19,12 +19,8 @@ export interface SocialLink {
   icon: SocialIcon;
 }
 
-export type ProjectTrack =
-  | 'web-apps'
-  | 'landing-pages'
-  | 'team-projects'
-  | 'typescript';
-export type ProjectType = 'course' | 'personal';
+export type ProjectCategory = 'personal' | 'team';
+export type ProjectFilter = 'applications' | 'landing-pages' | 'team-project';
 
 export interface Project {
   id: number;
@@ -35,16 +31,6 @@ export interface Project {
   technologies: string[];
   liveUrl: string;
   githubUrl: string;
-  type: ProjectType;
-  isTeamProject?: boolean;
-  isRefactored?: boolean;
-  tracks: ProjectTrack[];
-}
-
-export interface ArchivedProject {
-  id: number;
-  title: string;
-  note: string;
-  liveUrl?: string;
-  githubUrl: string;
+  category: ProjectCategory;
+  filters: ProjectFilter[];
 }
