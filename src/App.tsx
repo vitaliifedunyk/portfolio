@@ -37,13 +37,8 @@ function App() {
     return () => window.clearTimeout(timer);
   }, [isMouseGlowEnabled, shouldRenderMouseGlow]);
 
-  // Keep the sun accent outside <main> so it stays behind every section
   return (
     <div className="relative min-h-dvh bg-bg-primary flex flex-col overflow-x-hidden">
-      <div
-        className={`sun ${theme === 'light' ? 'sun-visible' : ''}`}
-        aria-hidden="true"
-      />
       <Suspense fallback={null}>
         {shouldRenderMouseGlow && isMouseGlowEnabled && (
           <MouseGlow paused={false} />
